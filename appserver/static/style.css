@@ -1,0 +1,61 @@
+#token_panel_collection {
+    width: 30% !important;
+}
+
+
+#token_panel_form {
+    width: 70% !important;
+}
+
+
+.column_requirement { 
+    float: left; 
+    width: 50%; 
+}
+
+.column_po_supplier { 
+  display: inline-block; 
+  width: 50%; 
+}
+
+
+#token_panel_form {
+    width: 70% !important;
+}
+
+
+.column {
+    float: left;
+    width: 33.33%;
+  }
+
+.row:after {
+    content: "";
+    display: table;
+    clear: both;
+  }
+
+textarea {
+    width: auto; 
+  }
+
+/* 
+    Example from https://www.w3schools.com/howto/howto_css_round_buttons.asp 
+    Button with round corners. Done by the border-radius 12x
+*/
+.button {
+    background-color: #4CAF50;
+    border: none;
+    color: white;
+    padding: 20px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 24x;
+    margin: 6px 4px;
+    font-weight: bold;
+  }
+
+.button4 {
+      border-radius: 12px;
+}
