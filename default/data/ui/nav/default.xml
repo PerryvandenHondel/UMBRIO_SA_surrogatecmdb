@@ -1,3 +1,14 @@
-<nav color="#EC008C">
-  <view name="home" default="true" label="Home" />
+<nav search_view="search">
+  <view name="welcome"/>
+  <view name="splunk_requirement"/>
+ 
+  <view name="search" default='true'/>
+  <view name="datasets"/>
+  <view name="reports"/>
+  <view name="alerts"/>
+  <view name="dashboards"/>
+  <collection label="DEV">
+     <view name="dev-3c"/>
+     <view name="dev-search-bar"/>
+  </collection>
 </nav>
