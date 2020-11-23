@@ -1,6 +1,6 @@
 <nav search_view="search">
   <view name="welcome"/>
-  <view name="splunk_requirement"/>
+  <view name="application"/>
  
   <view name="search" default='true'/>
   <view name="datasets"/>
