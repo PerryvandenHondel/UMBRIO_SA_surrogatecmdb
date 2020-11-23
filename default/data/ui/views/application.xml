@@ -1,0 +1,348 @@
+<dashboard script="splunk_requirement.js" stylesheet="splunk_requirement.css">s
+  
+  <label>Splunk Requirement (SRQ)</label>
+  
+  <search id="token_search_create" depends="$token_create_requirement_id$,
+      $token_create_category$,
+      $token_create_sub_category$,
+      $token_create_description$,
+      $token_create_rationale$,
+      $token_create_criteria_implication$,
+      $token_create_requirement_value$,
+      $token_create_accepted$,
+      $token_create_priority$,
+      $token_create_status$,
+      $token_create_phase$,
+      $token_create_comment_po$,
+      $token_create_comment_supplier$">
+
+    <query>
+      | inputlookup kvs_splunk_requirement 
+      | append [ stats count
+        | eval requirement_id="$token_create_requirement_id$" 
+        | eval category="$token_create_category$" 
+        | eval sub_category="$token_create_sub_category$"
+        | eval description="$token_create_description$"
+        | eval rationale="$token_create_rationale$"
+        | eval criteria_implication="$token_create_criteria_implication$"
+        | eval accepted="$token_create_accepted$"
+        | eval requirement_value="$token_create_requirement_value$"
+        | eval priority="$token_create_priority$"
+        | eval status="$token_create_status$"
+        | eval phase="$token_create_phase$"
+        | eval comment_po="$token_create_comment_po$"
+        | eval comment_supplier="$token_create_comment_supplier$" 
+        | eval date_created=now()
+        | eval date_updated=now()
+        | eval created_user="$env:user$"
+        | eval updated_user="$env:user$"]
+      | table requirement_id, category, sub_category, description, rationale, criteria_implication, accepted, priority, status, phase, comment_po, comment_supplier, date_created, date_updated, requirement_value, created_user, updated_user
+      | outputlookup kvs_splunk_requirement
+    </query>  
+  </search>
+
+
+  <search id="token_search_update" depends="$token_update_key$, 
+      $token_update_requirement_id$,
+      $token_update_category$,
+      $token_update_sub_category$,
+      $token_update_description$,
+      $token_update_rationale$,
+      $token_update_requirement_value$,
+      $token_update_criteria_implication$,
+      $token_update_accepted$,
+      $token_update_priority$,
+      $token_update_status$,
+      $token_update_phase$,
+      $token_update_comment_po$,
+      $token_update_comment_supplier$">
+    <query>
+      | inputlookup kvs_splunk_requirement 
+      | eval key=_key 
+      | WHERE key="$token_update_key$" 
+      | eval requirement_id="$token_update_requirement_id$"
+      | eval category="$token_update_category$"
+      | eval sub_category="$token_update_sub_category$"
+      | eval description="$token_update_description$"
+      | eval rationale="$token_update_rationale$"
+      | eval criteria_implication="$token_update_criteria_implication$"
+      | eval accepted="$token_update_accepted$"
+      | eval priority="$token_update_priority$"
+      | eval status="$token_update_status$"
+      | eval requirement_value="$token_update_requirement_value$"
+      | eval phase="$token_update_phase$"
+      | eval comment_po="$token_update_comment_po$"
+      | eval comment_supplier="$token_update_comment_supplier$"
+      | eval date_updated=now()
+      | eval updated_user="$env:user$"
+      | outputlookup kvs_splunk_requirement append=t
+    </query>  
+  </search>
+  
+    
+  <search id="token_search_delete" depends="$token_delete_key$">
+    <query>
+      | inputlookup kvs_splunk_requirement
+      | eval key=_key
+      | WHERE NOT key="$token_delete_key$"
+      | outputlookup kvs_splunk_requirement
+    </query>
+  </search>
+
+
+  <!-- Top selector drop downs -->
+
+  <!-- Drop down Category -->
+  <fieldset submitButton="false">
+    <!-- Drop down selector for Requirement ID -->
+    <input type="dropdown" token="token_select_requirement_id" searchWhenChanged="true">
+      <label>Requirement ID:</label>
+      <fieldForLabel>requirement_id</fieldForLabel>
+      <fieldForValue>requirement_id</fieldForValue>
+      <search>
+        <query>| inputlookup kvs_splunk_requirement | dedup requirement_id | sort requirement_id | table requirement_id</query>
+        <earliest>-24h@h</earliest>
+        <latest>now</latest>
+      </search>
+      <choice value="*">All</choice>
+      <initialValue>*</initialValue>
+      <prefix>"</prefix>
+      <suffix>"</suffix>
+      <default>*</default>
+    </input>
+
+    <!-- In the search SPL add prefix with "* and suffix with *"; so search valiue will be "*text to search*" -->
+    <input type="text" token="token_search_description" searchWhenChanged="true">
+      <label>Search description:</label>
+      <default>*</default>
+      <initialValue>*</initialValue>
+       <prefix>"*</prefix>
+      <suffix>*"</suffix>
+    </input>
+
+    <!-- Drop down selector for Category -->
+    <input type="dropdown" token="token_select_category" searchWhenChanged="true">
+      <label>Category:</label>
+      <fieldForLabel>category</fieldForLabel>
+      <fieldForValue>category</fieldForValue>
+      <search>
+        <query>| inputlookup kvs_splunk_requirement | dedup category | sort category | table category</query>
+        <earliest>-24h@h</earliest>
+        <latest>now</latest>
+      </search>
+      <choice value="*">All</choice>
+      <initialValue>*</initialValue>
+      <prefix>"</prefix>
+      <suffix>"</suffix>
+      <default>*</default>
+    </input>
+
+    <!-- Drop down selector for Accepted -->
+    <input type="dropdown" token="token_select_accepted" searchWhenChanged="true">
+      <label>PO Acceptance:</label>
+      <choice value="*">All</choice>
+      <default>*</default>
+      <initialValue>*</initialValue>
+      <fieldForLabel>accepted</fieldForLabel>
+      <fieldForValue>accepted</fieldForValue>
+      <search>
+        <query>| inputlookup kvs_splunk_requirement | dedup accepted | sort accepted | table accepted</query>
+        <earliest>-24h@h</earliest>
+        <latest>now</latest>
+      </search>
+    </input>
+
+    <!-- Drop down selector for Priority -->
+    <input type="dropdown" token="token_select_priority" searchWhenChanged="true">
+      <label>PO Priority:</label>
+      <choice value="*">All</choice>
+      <default>*</default>
+      <initialValue>*</initialValue>
+      <fieldForLabel>priority</fieldForLabel>
+      <fieldForValue>priority</fieldForValue>
+      <search>
+        <query>| inputlookup kvs_splunk_requirement | dedup priority | sort priority | table priority</query>
+        <earliest>-24h@h</earliest>
+        <latest>now</latest>
+      </search>
+    </input>
+
+    <!-- Drop down selector for Phase -->
+    <input type="dropdown" token="token_select_phase" searchWhenChanged="true">
+      <label>PO Phase:</label>
+      <choice value="*">All</choice>
+      <default>*</default>
+      <initialValue>*</initialValue>
+      <fieldForLabel>phase</fieldForLabel>
+      <fieldForValue>phase</fieldForValue>
+      <search>
+        <query>| inputlookup kvs_splunk_requirement | dedup phase | sort phase | table phase</query>
+        <earliest>-24h@h</earliest>
+        <latest>now</latest>
+      </search>
+    </input>
+
+    <!-- Drop down selector for Status -->
+    <input type="dropdown" token="token_select_status" searchWhenChanged="true">
+      <label>Supplier Status:</label>
+      <choice value="*">All</choice>
+      <default>*</default>
+      <initialValue>*</initialValue>
+      <fieldForLabel>status</fieldForLabel>
+      <fieldForValue>status</fieldForValue>
+      <search>
+        <query>| inputlookup kvs_splunk_requirement | dedup status | sort status | table status</query>
+        <earliest>-24h@h</earliest>
+        <latest>now</latest>
+      </search>
+    </input>
+  </fieldset>
+
+  <row>
+    <!-- Right side of the dashboard where the list of all requirements is -->
+    <panel id="token_panel_collection">
+      <table id="token_table_collection">
+        <title>Splunk Requirement</title>
+        <search id="token_search_collection">
+          <!-- Use search in SPL to use phase=*, will not work with where clause --> 
+          <query>
+            | inputlookup kvs_splunk_requirement 
+            | search (description=$token_search_description$ AND requirement_id=$token_select_requirement_id$ AND category=$token_select_category$ AND status="$token_select_status$" AND accepted="$token_select_accepted$" AND priority="$token_select_priority$" AND phase=$token_select_phase$) 
+            | eval Update="Update" 
+            | eval Delete="Delete" 
+            | table requirement_id, Update, Delete, description, *
+            | sort requirement_id
+          </query>
+          <earliest>0</earliest>
+          <latest></latest>
+        </search>
+        <option name="dataOverlayMode">none</option>
+        <option name="drilldown">cell</option>
+        <option name="percentagesRow">false</option>
+        <option name="rowNumbers">true</option>
+        <option name="wrap">false</option>
+        <option name="count">20</option>
+        <format type="color" field="Delete">
+          <colorPalette type="map">{"Delete":#b22222}</colorPalette>
+        </format>
+        <format type="color" field="Update">
+          <colorPalette type="map">{"Update":#228b22}</colorPalette>
+        </format>
+
+      </table>
+    </panel>
+    <!-- Left side of the dashboard where the form is -->
+     <panel id="token_panel_form">
+      <html>
+        <form>
+          <div class="column_requirement">
+          <h1>REQUIREMENT</h1>
+
+            <!-- Hidden input for KV Store key field -->
+            <input type="hidden" name="_key"/>
+
+            <div>
+          	  <label for="label_requirement_id">Requirement ID:</label>
+              <input style="width: 35%" type="text" name="name_requirement_id" />
+            </div>
+
+            <div>
+          	  <label for="label_description">Description:</label>
+              <textarea rows="5" cols="95%" name = "name_description"/>
+            </div>
+
+            <div>
+          	  <label for="label_requirement_value">Requirement Value:</label>
+              <input style="width: 35%" type="text" name="name_requirement_value" />
+            </div>
+
+            <label>Category:</label>
+                <select name="name_category" style="width:30%">       
+                <option selected="selected" value="AAA">AAA</option>
+                <option value="Connectivity">Connectivity</option>
+                <option value="Data">Data</option>
+                <option value="License">License</option>
+                <option value="Platform">Platform</option>
+                <option value="Security">Security</option>
+                <option value="Usage">Usage</option>
+              </select>
+
+            <div>
+          	  <label for="label_sub_category">Sub Category:</label>
+              <input style="width: 90%" type="text" name="name_sub_category" />
+            </div>
+
+            <div>
+          	  <label for="label_rationale">Rationale:</label>
+              <textarea rows="5" cols="95%" name = "name_rationale"/>
+            </div>
+
+            <div>
+          	  <label for="label_criteria_implication">Criteria/Implication:</label>
+              <textarea rows="5" cols="95%" name="name_criteria_implication" />
+            </div>
+            </div> <!-- Column Left Requirement -->
+            <div class="column_po_supplier">
+            <h1>SPLUNK PRODUCT OWNER (PO)</h1>
+
+            <div>
+              <label>Is the requirement accepted:</label>
+                <select name="name_accepted" style="width:30%">       
+                <option selected="selected" value="New">New</option>
+                <option value="In Review">In Review</option>
+                <option value="Accepted">Accepted</option>
+                <option value="Rejected">Rejected</option>
+              </select>
+            </div>
+
+            <div>
+              <label>Select the priority (MOSCOW):</label>
+                <select name="name_priority" style="width:30%">       
+                <option selected="selected" value="Must Have">Must Have</option>
+                <option value="Should Have">Should Have</option>
+                <option value="Can Have">Can Have</option>
+                <option value="Will Not Have">Will Not Have</option>
+              </select>
+            </div>
+
+            <div>
+              <label>Implement during phase:</label>
+                <select name="name_phase" style="width:30%">       
+                <option selected="selected"  value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+              </select>
+            </div>
+            
+            <div>
+          	  <label for="label_comment_po">Comment of the PO:</label>
+              <textarea rows="5" cols="95%" name = "name_comment_po"/>
+            </div>
+      
+            <h1>SPLUNK SUPPLIER</h1>
+            
+            <div>
+              <label>Select the status:</label>
+                <select name="name_status" style="width:30%">       
+                <option value="Compliant">Compliant</option>
+                <option value="Non-compliant">Non Compliant</option>
+                <option selected="selected" value="Not Checked">Not Checked</option>
+              </select>
+            </div>
+
+            <div>
+          	  <label for="label_comment_supplier">Comment of the Supplier:</label>
+              <textarea rows="5" cols="95%" name = "name_comment_supplier"/>
+            </div>
+
+          </div>
+          <div>
+            <p style="text-align:right">
+              <button class="button button4" id="id_button_submit">Submit</button>
+            </p> <!-- Alignment of the button to the right of the column -->
+          </div>
+        </form>
+      </html>
+    </panel>
+  </row>
+</dashboard>
