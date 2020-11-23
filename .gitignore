@@ -1,0 +1,4 @@
+local.meta
+*.ods#
+*.ods
+settings.json
