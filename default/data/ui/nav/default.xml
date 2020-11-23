@@ -1,7 +1,6 @@
 <nav search_view="search">
   <view name="welcome"/>
   <view name="application"/>
- 
   <view name="search" default='true'/>
   <view name="datasets"/>
   <view name="reports"/>
