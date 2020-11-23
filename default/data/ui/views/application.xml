@@ -1,6 +1,6 @@
-<dashboard script="splunk_requirement.js" stylesheet="splunk_requirement.css">s
+<dashboard script="code_application.js" stylesheet="style.css">
   
-  <label>Splunk Requirement (SRQ)</label>
+  <label>SCMDB Application</label>
   
   <search id="token_search_create" depends="$token_create_requirement_id$,
       $token_create_category$,
