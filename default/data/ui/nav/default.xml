@@ -7,8 +7,4 @@
   <view name="reports"/>
   <view name="alerts"/>
   <view name="dashboards"/>
-  <collection label="DEV">
-     <view name="dev-3c"/>
-     <view name="dev-search-bar"/>
-  </collection>
 </nav>
