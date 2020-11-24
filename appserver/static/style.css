@@ -7,7 +7,7 @@
     width: 50% !important;
 }
 
-
+/*
 .column_requirement { 
     float: left; 
     width: 50%; 
@@ -17,10 +17,10 @@
   display: inline-block; 
   width: 50%; 
 }
-
+*/
 
 #token_panel_form {
-    width: 70% !important;
+    width: 50% !important;
 }
 
 
