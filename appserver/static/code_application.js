@@ -19,28 +19,17 @@ require([
     var tableCollection = mvc.Components.get('token_table_collection');
 
 	/* --- Variables for inputs --- */
-	var input_key= $('[name="_key"]');
-	var input_requirement_id = $('[name="name_requirement_id"]');
-	var input_category= $('[name="name_category"]');
-	var input_sub_category = $('[name="name_sub_category"]');
-	var input_description = $('[name="name_description"]');
-	var input_rationale = $('[name="name_rationale"]');
-	var input_criteria_implication = $('[name="name_criteria_implication"]');
-	var input_requirement_value = $('[name="name_requirement_value"]');
-	var input_accepted = $('[name="name_accepted"]');	
-	var input_priority = $('[name="name_priority"]');	
-	var input_status = $('[name="name_status"]');	
-	var input_phase = $('[name="name_phase"]');
-	var input_comment_po = $('[name="name_comment_po"]');
-	var input_comment_supplier = $('[name="name_comment_supplier"]');
-
+	var input_key = $('[name="_key"]');
+	var input_name = $('[name="name_name"]');
+	var input_application_id = $('[name="name_application_id"]');
+	
     tableCollection.on('click', function(e){
 		e.preventDefault();
 
 		/* --- Variables for values --- */
 		var val_key;
-		var val_requirement_id;
-		var val_category;
+		var val_application_id;
+		var val_name;
 		var val_sub_category;
 		var val_description;
 		var val_rationale;
@@ -56,35 +45,13 @@ require([
 		if(e['field'] === 'Update'){ 
 			/* --- Pull values from the current table row --- */
 			val_key = e.data['row._key'];
-			val_requirement_id = e.data['row.requirement_id'];
-			val_category = e.data['row.category'];
-			val_sub_category = e.data['row.sub_category'];
-			val_description = e.data['row.description'];
-			val_rationale = e.data['row.rationale'];
-			val_requirement_value = e.data['row.requirement_value'];
-			val_criteria_implication = e.data['row.criteria_implication'];
-			val_accepted = e.data['row.accepted'];
-			val_priority = e.data['row.priority'];
-			val_status = e.data['row.status'];
-			val_phase = e.data['row.phase'];
-			val_comment_po = e.data['row.comment_po'];
-			val_comment_supplier = e.data['row.comment_supplier'];
-
+			val_application_id = e.data['row.application_id'];
+			val_name = e.data['row.name'];
+			
 			/* --- Insert values from rows into input fields --- */
 			input_key.val(val_key);
-			input_requirement_id.val(val_requirement_id);
-			input_category.val(val_category);
-			input_sub_category.val(val_sub_category);
-			input_description.val(val_description);
-			input_rationale.val(val_rationale);
-			input_requirement_value.val(val_requirement_value);
-			input_criteria_implication.val(val_criteria_implication);
-			input_accepted.val(val_accepted);
-			input_priority.val(val_priority);
-			input_status.val(val_status);
-			input_phase.val(val_phase);
-			input_comment_po.val(val_comment_po);
-			input_comment_supplier.val(val_comment_supplier);
+			input_application_id.val(val_application_id);
+			input_name.val(val_name);
 		} else if(e['field'] === 'Delete'){
 			tokens.set('token_delete_key', e.data['row._key']);
 		}
@@ -102,39 +69,18 @@ require([
 		if(input_key.val() != '') {
 			/* --- Update Record --- */
 			console.log('Submit button clicked, update record', input_key.val());
-			tokens.set('token_update_requirement_id', input_requirement_id.val());
+			tokens.set('token_update_application_id', input_application_id.val());
 			tokens.set('token_update_key', input_key.val());
-			tokens.set('token_update_category', input_category.val());
-			tokens.set('token_update_sub_category', input_sub_category.val());
-			tokens.set('token_update_description', input_description.val());
-			tokens.set('token_update_rationale', input_rationale.val());
-			tokens.set('token_update_criteria_implication', input_criteria_implication.val());
-			tokens.set('token_update_requirement_value', input_requirement_value.val());
-			tokens.set('token_update_accepted', input_accepted.val());
-			tokens.set('token_update_priority', input_priority.val());
-			tokens.set('token_update_status', input_status.val());
-			tokens.set('token_update_phase', input_phase.val());
-			tokens.set('token_update_comment_po', input_comment_po.val());
-			tokens.set('token_update_comment_supplier', input_comment_supplier.val());
+			tokens.set('token_update_name', input_name.val());
 		} else {
 			/* --- New record --- */
 			console.log('Submit button clicked, new record');
 			/* tokens.set('create_tok', 'true'); */
-			tokens.set('token_create_requirement_id', input_requirement_id.val());
-			tokens.set('token_create_category', input_category.val());
-			tokens.set('token_create_sub_category', input_sub_category.val());
-			tokens.set('token_create_description', input_description.val());
-			tokens.set('token_create_rationale', input_rationale.val());
-			tokens.set('token_create_criteria_implication', input_criteria_implication.val());
-			tokens.set('token_create_accepted', input_accepted.val());
-			tokens.set('token_create_requirement_value', input_requirement_value.val());
-			tokens.set('token_create_priority', input_priority.val());
-			tokens.set('token_create_status', input_status.val());
-			tokens.set('token_create_phase', input_phase.val());
-			tokens.set('token_create_comment_po', input_comment_po.val());
-			tokens.set('token_create_comment_supplier', input_comment_supplier.val());
+			tokens.set('token_create_application_id', input_application_id.val());
+			tokens.set('token_create_name', input_name.val());
+		
 
-			console.log('Values: token_create_requirement_id=', input_requirement_id.val())
+			console.log('Values: token_create_application_id=', input_application_id.val())
 		}
 		console.log('Submit button clicked done');
 	});
