@@ -45,8 +45,8 @@ require([
 		if(e['field'] === 'Update'){ 
 			/* --- Pull values from the current table row --- */
 			val_key = e.data['row._key'];
-			val_application_id = e.data['row.application_id'];
-			val_name = e.data['row.name'];
+			val_application_id = e.data['row.app_application_id'];
+			val_name = e.data['row.app_name'];
 			
 			/* --- Insert values from rows into input fields --- */
 			input_key.val(val_key);

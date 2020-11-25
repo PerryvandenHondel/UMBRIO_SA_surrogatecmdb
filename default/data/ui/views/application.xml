@@ -8,13 +8,13 @@
     <query>
       | inputlookup kvs_scmdb_application 
       | append [ stats count
-        | eval application_id="$token_create_application_id$" 
-        | eval name="$token_create_name$" 
-        | eval created_date=now()
-        | eval updated_date=now()
-        | eval created_user="$env:user$"
-        | eval updated_user="$env:user$"]
-      | table application_id, name, created_date, updated_date, created_user, updated_user
+        | eval app_application_id="$token_create_application_id$" 
+        | eval app_name="$token_create_name$" 
+        | eval app_created_date=now()
+        | eval app_updated_date=now()
+        | eval app_created_user="$env:user$"
+        | eval app_updated_user="$env:user$"]
+      | table app_application_id, app_name, app_created_date, app_updated_date, app_created_user, app_updated_user
       | outputlookup kvs_scmdb_application
     </query>  
   </search>
@@ -27,10 +27,10 @@
       | inputlookup kvs_scmdb_application 
       | eval key=_key 
       | WHERE key="$token_update_key$" 
-      | eval application_id="$token_update_application_id$"
-      | eval name="$token_update_name$"
-      | eval updated_date=now()
-      | eval updated_user="$env:user$"
+      | eval app_application_id="$token_update_application_id$"
+      | eval app_name="$token_update_name$"
+      | eval app_updated_date=now()
+      | eval app_updated_user="$env:user$"
       | outputlookup kvs_scmdb_application append=t
     </query>  
   </search>
@@ -51,12 +51,12 @@
   <!-- Drop down Category -->
   <fieldset submitButton="false">
     <!-- Drop down selector for Requirement ID -->
-    <input type="dropdown" token="token_select_requirement_id" searchWhenChanged="true">
-      <label>Requirement ID:</label>
-      <fieldForLabel>requirement_id</fieldForLabel>
-      <fieldForValue>requirement_id</fieldForValue>
+    <input type="dropdown" token="token_select_application_id" searchWhenChanged="true">
+      <label>Application ID:</label>
+      <fieldForLabel>app_application_id</fieldForLabel>
+      <fieldForValue>app_application_id</fieldForValue>
       <search>
-        <query>| inputlookup kvs_splunk_requirement | dedup requirement_id | sort requirement_id | table requirement_id</query>
+        <query>| inputlookup kvs_scmdb_application | dedup app_application_id | sort app_application_id | table app_application_id</query>
         <earliest>-24h@h</earliest>
         <latest>now</latest>
       </search>
@@ -68,104 +68,29 @@
     </input>
 
     <!-- In the search SPL add prefix with "* and suffix with *"; so search valiue will be "*text to search*" -->
-    <input type="text" token="token_search_description" searchWhenChanged="true">
-      <label>Search description:</label>
+    <input type="text" token="token_search_app_name" searchWhenChanged="true">
+      <label>Search application name:</label>
       <default>*</default>
       <initialValue>*</initialValue>
-       <prefix>"*</prefix>
-      <suffix>*"</suffix>
+       <prefix>*</prefix>
+      <suffix>*</suffix>
     </input>
 
-    <!-- Drop down selector for Category -->
-    <input type="dropdown" token="token_select_category" searchWhenChanged="true">
-      <label>Category:</label>
-      <fieldForLabel>category</fieldForLabel>
-      <fieldForValue>category</fieldForValue>
-      <search>
-        <query>| inputlookup kvs_splunk_requirement | dedup category | sort category | table category</query>
-        <earliest>-24h@h</earliest>
-        <latest>now</latest>
-      </search>
-      <choice value="*">All</choice>
-      <initialValue>*</initialValue>
-      <prefix>"</prefix>
-      <suffix>"</suffix>
-      <default>*</default>
-    </input>
-
-    <!-- Drop down selector for Accepted -->
-    <input type="dropdown" token="token_select_accepted" searchWhenChanged="true">
-      <label>PO Acceptance:</label>
-      <choice value="*">All</choice>
-      <default>*</default>
-      <initialValue>*</initialValue>
-      <fieldForLabel>accepted</fieldForLabel>
-      <fieldForValue>accepted</fieldForValue>
-      <search>
-        <query>| inputlookup kvs_splunk_requirement | dedup accepted | sort accepted | table accepted</query>
-        <earliest>-24h@h</earliest>
-        <latest>now</latest>
-      </search>
-    </input>
-
-    <!-- Drop down selector for Priority -->
-    <input type="dropdown" token="token_select_priority" searchWhenChanged="true">
-      <label>PO Priority:</label>
-      <choice value="*">All</choice>
-      <default>*</default>
-      <initialValue>*</initialValue>
-      <fieldForLabel>priority</fieldForLabel>
-      <fieldForValue>priority</fieldForValue>
-      <search>
-        <query>| inputlookup kvs_splunk_requirement | dedup priority | sort priority | table priority</query>
-        <earliest>-24h@h</earliest>
-        <latest>now</latest>
-      </search>
-    </input>
-
-    <!-- Drop down selector for Phase -->
-    <input type="dropdown" token="token_select_phase" searchWhenChanged="true">
-      <label>PO Phase:</label>
-      <choice value="*">All</choice>
-      <default>*</default>
-      <initialValue>*</initialValue>
-      <fieldForLabel>phase</fieldForLabel>
-      <fieldForValue>phase</fieldForValue>
-      <search>
-        <query>| inputlookup kvs_splunk_requirement | dedup phase | sort phase | table phase</query>
-        <earliest>-24h@h</earliest>
-        <latest>now</latest>
-      </search>
-    </input>
-
-    <!-- Drop down selector for Status -->
-    <input type="dropdown" token="token_select_status" searchWhenChanged="true">
-      <label>Supplier Status:</label>
-      <choice value="*">All</choice>
-      <default>*</default>
-      <initialValue>*</initialValue>
-      <fieldForLabel>status</fieldForLabel>
-      <fieldForValue>status</fieldForValue>
-      <search>
-        <query>| inputlookup kvs_splunk_requirement | dedup status | sort status | table status</query>
-        <earliest>-24h@h</earliest>
-        <latest>now</latest>
-      </search>
-    </input>
+    
   </fieldset>
 
   <row>
     <!-- Right side of the dashboard where the list of all requirements is -->
     <panel id="token_panel_collection">
       <table id="token_table_collection">
-        <title>Splunk Requirement</title>
+        <title>Applications List</title>
         <search id="token_search_collection">
           <!-- Use search in SPL to use phase=*, will not work with where clause --> 
           <query>
-            | inputlookup kvs_scmdb_application  
+            | inputlookup kvs_scmdb_application 
             | eval Update="Update" 
             | eval Delete="Delete" 
-            | table application_id, Update, Delete, name, *
+            | table app_application_id, Update, Delete, app_name, *
             | sort name
           </query>
           <earliest>0</earliest>
@@ -190,7 +115,7 @@
      <panel id="token_panel_form">
       <html>
         <form>
-          <h1>Application Form</h1>
+          <h1>Application Details</h1>
 
             <!-- Hidden input for KV Store key field -->
             <input type="hidden" name="_key"/>
