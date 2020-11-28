@@ -37,7 +37,7 @@
     
   <search id="token_search_delete" depends="$token_delete_key$">
     <query>
-      | inputlookup kvs_scmdb_systen
+      | inputlookup kvs_scmdb_system
       | eval key=_key
       | WHERE NOT key="$token_delete_key$"
       | outputlookup kvs_scmdb_system
@@ -62,7 +62,7 @@
             | eval Update="Update" 
             | eval Delete="Delete" 
             | table sys_application_id, Update, Delete, sys_host_name, *
-            | sort name
+            | sort sys_host_name
           </query>
           <earliest>0</earliest>
           <latest></latest>
