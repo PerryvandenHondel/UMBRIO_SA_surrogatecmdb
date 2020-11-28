@@ -22,6 +22,8 @@ require([
 	var input_key = $('[name="_key"]');
 	var input_name = $('[name="name_name"]');
 	var input_application_id = $('[name="name_application_id"]');
+	var input_type = $('[name="name_type"]');
+	var input_description = $('[name="name_description"]');
 	
     tableCollection.on('click', function(e){
 		e.preventDefault();
@@ -30,28 +32,22 @@ require([
 		var val_key;
 		var val_application_id;
 		var val_name;
-		var val_sub_category;
-		var val_description;
-		var val_rationale;
-		var val_criteria_implication;
-		var val_accepted;
-		var val_requirement_value
-		var val_priority;
-		var val_status;
-		var val_phase;
-		var val_comment_po;
-		var val_comment_supplier;
-
+		var val_type;
+		
 		if(e['field'] === 'Update'){ 
 			/* --- Pull values from the current table row --- */
 			val_key = e.data['row._key'];
 			val_application_id = e.data['row.app_application_id'];
 			val_name = e.data['row.app_name'];
+			val_type = e.data['row.app_type'];
+			val_description = e.data['row.app_description'];
 			
 			/* --- Insert values from rows into input fields --- */
 			input_key.val(val_key);
 			input_application_id.val(val_application_id);
 			input_name.val(val_name);
+			input_type.val(val_type);
+			input_description.val(val_description);
 		} else if(e['field'] === 'Delete'){
 			tokens.set('token_delete_key', e.data['row._key']);
 		}
@@ -68,19 +64,20 @@ require([
 		e.preventDefault();
 		if(input_key.val() != '') {
 			/* --- Update Record --- */
-			console.log('Submit button clicked, update record', input_key.val());
+			console.log('SUBMIT UPDATE', input_key.val());
 			tokens.set('token_update_application_id', input_application_id.val());
 			tokens.set('token_update_key', input_key.val());
 			tokens.set('token_update_name', input_name.val());
+			tokens.set('token_update_type', input_type.val());
+			tokens.set('token_update_description', input_description.val());
 		} else {
 			/* --- New record --- */
-			console.log('Submit button clicked, new record');
+			console.log('SUBMIT NEW');
 			/* tokens.set('create_tok', 'true'); */
 			tokens.set('token_create_application_id', input_application_id.val());
 			tokens.set('token_create_name', input_name.val());
-		
-
-			console.log('Values: token_create_application_id=', input_application_id.val())
+			tokens.set('token_create_type', input_type.val());
+			tokens.set('token_create_description', input_description.val());
 		}
 		console.log('Submit button clicked done');
 	});

@@ -9,12 +9,14 @@
       | inputlookup kvs_scmdb_application 
       | append [ stats count
         | eval app_application_id="$token_create_application_id$" 
-        | eval app_name="$token_create_name$" 
+        | eval app_name="$token_create_name$"
+        | eval app_type="$token_create_type$"
+        | eval app_description="$token_create_description$"
         | eval app_created_date=now()
         | eval app_updated_date=now()
         | eval app_created_user="$env:user$"
         | eval app_updated_user="$env:user$"]
-      | table app_application_id, app_name, app_created_date, app_updated_date, app_created_user, app_updated_user
+      | table app_application_id, app_name, app_type, app_description, app_created_date, app_updated_date, app_created_user, app_updated_user
       | outputlookup kvs_scmdb_application
     </query>  
   </search>
@@ -29,6 +31,8 @@
       | WHERE key="$token_update_key$" 
       | eval app_application_id="$token_update_application_id$"
       | eval app_name="$token_update_name$"
+      | eval app_type="$token_update_type$"
+      | eval app_description="$token_update_description$"
       | eval app_updated_date=now()
       | eval app_updated_user="$env:user$"
       | outputlookup kvs_scmdb_application append=t
@@ -127,8 +131,19 @@
 
             <div>
           	  <label for="label_name">Name:</label>
-              <textarea rows="5" cols="95%" name = "name_name"/>
+               <input style="width: 95%" type="text" name="name_name"/>
             </div>
+
+            <div>
+          	  <label for="label_type">Type:</label>
+               <input style="width: 35%" type="text" name="name_type"/>
+            </div>
+
+            <div>
+          	  <label for="label_description">Description:</label>
+               <textarea rows="3" cols="95%" name="name_description"/>
+            </div>
+
 
             
           <div>
