@@ -6,18 +6,18 @@ col_scmdb_application
         Client
         Webbased
     >app_description
-    app_contact
+    >app_contact
         E-mail Contact DisplayName
-    app_functional_support
+    >app_functional_support
         E-mail Contact DisplayName
-    app_technical_support
+    >app_technical_support
         E-mail Contact DisplayName
-    app_url
+    >app_url
         https://www.name.com
-    app_created_date
-    app_updated_date
-    app_created_user
-    app_updated_user
+    >app_created_date
+    >app_updated_date
+    >app_created_user
+    >app_updated_user
 
 
 
