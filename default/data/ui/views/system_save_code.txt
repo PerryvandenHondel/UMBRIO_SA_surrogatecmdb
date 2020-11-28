@@ -1,0 +1,28 @@
+
+  <!-- Drop down Category -->
+  
+    <!-- Drop down selector for Requirement ID -->
+    <input type="dropdown" token="token_select_application_id" searchWhenChanged="true">
+      <label>Application ID:</label>
+      <fieldForLabel>sys_application_id</fieldForLabel>
+      <fieldForValue>sys_application_id</fieldForValue>
+      <search>
+        <query>| inputlookup kvs_scmdb_system | dedup sys_application_id | sort sys_application_id | table sys_application_id</query>
+        <earliest>-24h@h</earliest>
+        <latest>now</latest>
+      </search>
+      <choice value="*">All</choice>
+      <initialValue>*</initialValue>
+      <prefix>"</prefix>
+      <suffix>"</suffix>
+      <default>*</default>
+    </input>
+
+    <!-- In the search SPL add prefix with "* and suffix with *"; so search valiue will be "*text to search*" -->
+    <input type="text" token="token_search_sys_host_name" searchWhenChanged="true">
+      <label>System name:</label>
+      <default>*</default>
+      <initialValue>*</initialValue>
+       <prefix>*</prefix>
+      <suffix>*</suffix>
+    </input>
