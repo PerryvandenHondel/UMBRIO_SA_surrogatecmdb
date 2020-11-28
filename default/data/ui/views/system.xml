@@ -1,96 +1,67 @@
-<dashboard script="code_application.js" stylesheet="style.css">
+<dashboard script="code_system.js" stylesheet="style.css">
   
   <label>System</label>
   
   <search id="token_search_create" depends="$token_create_application_id$,
-      $token_create_name$">
-
+      $token_create_host_name$">
     <query>
-      | inputlookup kvs_scmdb_application 
+      | inputlookup kvs_scmdb_system 
       | append [ stats count
-        | eval app_application_id="$token_create_application_id$" 
-        | eval app_name="$token_create_name$" 
-        | eval app_created_date=now()
-        | eval app_updated_date=now()
-        | eval app_created_user="$env:user$"
-        | eval app_updated_user="$env:user$"]
-      | table app_application_id, app_name, app_created_date, app_updated_date, app_created_user, app_updated_user
-      | outputlookup kvs_scmdb_application
+        | eval sys_application_id="$token_create_application_id$" 
+        | eval sys_host_name="$token_create_host_name$" 
+        | eval sys_created_date=now()
+        | eval sys_updated_date=now()
+        | eval sys_created_user="$env:user$"
+        | eval sys_updated_user="$env:user$"]
+      | table sys_application_id, sys_name, sys_created_date, sys_updated_date, sys_created_user, sys_updated_user
+      | outputlookup kvs_scmdb_system
     </query>  
   </search>
 
 
   <search id="token_search_update" depends="$token_update_key$, 
       $token_update_application_id$,
-      $token_update_name$">
+      $token_update_host_name$">
     <query>
-      | inputlookup kvs_scmdb_application 
+      | inputlookup kvs_scmdb_system 
       | eval key=_key 
       | WHERE key="$token_update_key$" 
-      | eval app_application_id="$token_update_application_id$"
-      | eval app_name="$token_update_name$"
-      | eval app_updated_date=now()
-      | eval app_updated_user="$env:user$"
-      | outputlookup kvs_scmdb_application append=t
+      | eval sys_application_id="$token_update_application_id$"
+      | eval sys_host_name="$token_update_host_name$"
+      | eval sys_updated_date=now()
+      | eval sys_updated_user="$env:user$"
+      | outputlookup kvs_scmdb_system append=t
     </query>  
   </search>
   
     
   <search id="token_search_delete" depends="$token_delete_key$">
     <query>
-      | inputlookup kvs_scmdb_application
+      | inputlookup kvs_scmdb_systen
       | eval key=_key
       | WHERE NOT key="$token_delete_key$"
-      | outputlookup kvs_scmdb_application
+      | outputlookup kvs_scmdb_system
     </query>
   </search>
 
 
   <!-- Top selector drop downs -->
 
-  <!-- Drop down Category -->
   <fieldset submitButton="false">
-    <!-- Drop down selector for Requirement ID -->
-    <input type="dropdown" token="token_select_application_id" searchWhenChanged="true">
-      <label>Application ID:</label>
-      <fieldForLabel>app_application_id</fieldForLabel>
-      <fieldForValue>app_application_id</fieldForValue>
-      <search>
-        <query>| inputlookup kvs_scmdb_application | dedup app_application_id | sort app_application_id | table app_application_id</query>
-        <earliest>-24h@h</earliest>
-        <latest>now</latest>
-      </search>
-      <choice value="*">All</choice>
-      <initialValue>*</initialValue>
-      <prefix>"</prefix>
-      <suffix>"</suffix>
-      <default>*</default>
-    </input>
-
-    <!-- In the search SPL add prefix with "* and suffix with *"; so search valiue will be "*text to search*" -->
-    <input type="text" token="token_search_app_name" searchWhenChanged="true">
-      <label>Search application name:</label>
-      <default>*</default>
-      <initialValue>*</initialValue>
-       <prefix>*</prefix>
-      <suffix>*</suffix>
-    </input>
-
-    
   </fieldset>
 
   <row>
     <!-- Right side of the dashboard where the list of all requirements is -->
     <panel id="token_panel_collection">
       <table id="token_table_collection">
-        <title>Applications List</title>
+        <title>System List</title>
         <search id="token_search_collection">
           <!-- Use search in SPL to use phase=*, will not work with where clause --> 
           <query>
-            | inputlookup kvs_scmdb_application 
+            | inputlookup kvs_scmdb_system 
             | eval Update="Update" 
             | eval Delete="Delete" 
-            | table app_application_id, Update, Delete, app_name, *
+            | table sys_application_id, Update, Delete, sys_host_name, *
             | sort name
           </query>
           <earliest>0</earliest>
@@ -115,22 +86,27 @@
      <panel id="token_panel_form">
       <html>
         <form>
-          <h1>Application Details</h1>
+          <h1>System Details</h1>
 
             <!-- Hidden input for KV Store key field -->
             <input type="hidden" name="_key"/>
 
             <div>
-          	  <label for="label_application_id">Application ID:</label>
-              <input style="width: 35%" type="text" name="name_application_id"/>
+          	  <label for="label_host_name">Host name:</label>
+              <input style="width: 35%" type="text" name="name_sys_host_name"/>
             </div>
 
             <div>
-          	  <label for="label_name">Name:</label>
-              <textarea rows="5" cols="95%" name = "name_name"/>
+          	  <label for="label_application_id">Application ID:</label>
+              <input style="width: 35%" type="text" name="name_sys_application_id"/>
             </div>
 
-            
+            <!--
+            <div>
+          	  <label for="label_dummy2">Dummy:</label>
+              <textarea rows="5" cols="95%" name = "name_sys_dummy"/>
+            </div>
+            -->
           <div>
             <p style="text-align:right">
               <button class="button button4" id="id_button_submit">Submit</button>
