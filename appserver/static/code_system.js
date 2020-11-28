@@ -20,8 +20,8 @@ require([
 
 	/* --- Variables for inputs --- */
 	var input_key = $('[name="_key"]');
-	var input_name = $('[name="name_name"]');
-	var input_application_id = $('[name="name_application_id"]');
+	var input_host_name = $('[name="name_sys_host_name"]');
+	var input_application_id = $('[name="name_sys_application_id"]');
 	
     tableCollection.on('click', function(e){
 		e.preventDefault();
@@ -29,7 +29,7 @@ require([
 		/* --- Variables for values --- */
 		var val_key;
 		var val_application_id;
-		var val_name;
+		var val_host_name;
 		var val_sub_category;
 		var val_description;
 		var val_rationale;
@@ -45,15 +45,20 @@ require([
 		if(e['field'] === 'Update'){ 
 			/* --- Pull values from the current table row --- */
 			val_key = e.data['row._key'];
-			val_application_id = e.data['row.app_application_id'];
-			val_name = e.data['row.app_name'];
+			val_application_id = e.data['row.sys_application_id'];
+			val_host_name = e.data['row.sys_host_name'];
 			
+			console.log('UPDATE>val_application_id=', val_application_id);
+			console.log('UPDATE>val_host_name=', val_host_name);
+
 			/* --- Insert values from rows into input fields --- */
 			input_key.val(val_key);
 			input_application_id.val(val_application_id);
-			input_name.val(val_name);
+			input_host_name.val(val_host_name);
 		} else if(e['field'] === 'Delete'){
 			tokens.set('token_delete_key', e.data['row._key']);
+			
+			console.log('DELETE _key=', e.data['row._key']);
 		}
 
 		$('form *').filter(':input').each(function(){
@@ -66,23 +71,33 @@ require([
 
 	$(document).on('click', '#id_button_submit', function(e){
 		e.preventDefault();
+
+		console.log('SUBMIT BUTTON CLICKED')
+		
 		if(input_key.val() != '') {
 			/* --- Update Record --- */
+			console.log('UPDATE RECORD');
+
 			console.log('Submit button clicked, update record', input_key.val());
+			console.log('UPDATE>input_key', input_key.val());
+			console.log('UPDATE>input_host_name', input_host_name.val());
+			console.log('UPDATE>input_application_id', input_application_id.val());
+			
 			tokens.set('token_update_application_id', input_application_id.val());
 			tokens.set('token_update_key', input_key.val());
-			tokens.set('token_update_name', input_name.val());
+			tokens.set('token_update_host_name', input_host_name.val());
+
+
 		} else {
 			/* --- New record --- */
-			console.log('Submit button clicked, new record');
+			console.log('NEW RECORD');
 			/* tokens.set('create_tok', 'true'); */
 			tokens.set('token_create_application_id', input_application_id.val());
-			tokens.set('token_create_name', input_name.val());
-		
-
+			tokens.set('token_create_host_name', input_host_name.val());
+			
+			comsole.log('NEW: token_create_host_name=', input_host_name.val())
 			console.log('Values: token_create_application_id=', input_application_id.val())
 		}
-		console.log('Submit button clicked done');
 	});
 
 
