@@ -12,11 +12,15 @@
         | eval app_name="$token_create_name$"
         | eval app_type="$token_create_type$"
         | eval app_description="$token_create_description$"
+        | eval app_contact="$token_create_contact$"
+        | eval app_functional_support="$token_create_functional_support$"
+        | eval app_technical_support="$token_create_technical_support$"
+        | eval app_url="$token_create_url$"
         | eval app_created_date=now()
         | eval app_updated_date=now()
         | eval app_created_user="$env:user$"
         | eval app_updated_user="$env:user$"]
-      | table app_application_id, app_name, app_type, app_description, app_created_date, app_updated_date, app_created_user, app_updated_user
+      | table app_application_id, app_name, app_type, app_description, app_contact, app_functional_support, app_technical_support, app_url, app_created_date, app_updated_date, app_created_user, app_updated_user
       | outputlookup kvs_scmdb_application
     </query>  
   </search>
@@ -33,6 +37,10 @@
       | eval app_name="$token_update_name$"
       | eval app_type="$token_update_type$"
       | eval app_description="$token_update_description$"
+      | eval app_contact="$token_update_contact$"
+      | eval app_functional_support="$token_update_functional_support$"
+      | eval app_technical_support="$token_update_technical_support$"
+      | eval app_url="$token_update_url$"
       | eval app_updated_date=now()
       | eval app_updated_user="$env:user$"
       | outputlookup kvs_scmdb_application append=t
@@ -131,23 +139,41 @@
 
             <div>
           	  <label for="label_name">Name:</label>
-               <input style="width: 95%" type="text" name="name_name"/>
+              <input style="width: 95%" type="text" name="name_name"/>
             </div>
 
             <div>
           	  <label for="label_type">Type:</label>
-               <input style="width: 35%" type="text" name="name_type"/>
+              <input style="width: 35%" type="text" name="name_type"/>
             </div>
 
             <div>
           	  <label for="label_description">Description:</label>
-               <textarea rows="3" cols="95%" name="name_description"/>
+              <textarea rows="3" cols="95%" name="name_description"/>
             </div>
 
+            <div>
+          	  <label for="label_contact">Contact:</label>
+              <input style="width: 55%" type="text" name="name_contact"/>
+            </div>
 
+            <div>
+          	  <label for="label_functional_support">Functional Support:</label>
+              <input style="width: 55%" type="text" name="name_functional_support"/>
+            </div>
+
+            <div>
+          	  <label for="label_technical_support">Technical Support:</label>
+              <input style="width: 55%" type="text" name="name_technical_support"/>
+            </div>
+
+            <div>
+          	  <label for="label_url">URL:</label>
+              <input style="width: 95%" type="text" name="name_url"/>
+            </div>
             
-          <div>
-            <p style="text-align:right">
+            <div>
+              <p style="text-align:right">
               <button class="button button4" id="id_button_submit">Submit</button>
             </p> <!-- Alignment of the button to the right of the column -->
           </div>

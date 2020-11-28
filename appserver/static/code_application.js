@@ -24,6 +24,10 @@ require([
 	var input_application_id = $('[name="name_application_id"]');
 	var input_type = $('[name="name_type"]');
 	var input_description = $('[name="name_description"]');
+	var input_contact = $('[name="name_contact"]');
+	var input_functional_support = $('[name="name_functional_support"]');
+	var input_technical_support = $('[name="name_technical_support"]');
+	var input_url = $('[name="name_url"]');
 	
     tableCollection.on('click', function(e){
 		e.preventDefault();
@@ -33,6 +37,11 @@ require([
 		var val_application_id;
 		var val_name;
 		var val_type;
+		var val_description;
+		var val_contact;
+		var val_functional_support;
+		var val_technical_support;
+		var val_url;
 		
 		if(e['field'] === 'Update'){ 
 			/* --- Pull values from the current table row --- */
@@ -41,6 +50,10 @@ require([
 			val_name = e.data['row.app_name'];
 			val_type = e.data['row.app_type'];
 			val_description = e.data['row.app_description'];
+			val_contact = e.data['row.app_contact'];
+			val_functional_support = e.data['row.app_functional_support'];
+			val_technical_support = e.data['row.app_technical_support'];
+			val_url = e.data['row.app_url'];
 			
 			/* --- Insert values from rows into input fields --- */
 			input_key.val(val_key);
@@ -48,6 +61,11 @@ require([
 			input_name.val(val_name);
 			input_type.val(val_type);
 			input_description.val(val_description);
+			input_contact.val(val_contact);
+			input_functional_support.val(val_functional_support);
+			input_technical_support.val(val_technical_support);
+			input_url.val(val_url);
+
 		} else if(e['field'] === 'Delete'){
 			tokens.set('token_delete_key', e.data['row._key']);
 		}
@@ -70,6 +88,11 @@ require([
 			tokens.set('token_update_name', input_name.val());
 			tokens.set('token_update_type', input_type.val());
 			tokens.set('token_update_description', input_description.val());
+
+			tokens.set('token_update_contact', input_contact.val());
+			tokens.set('token_update_functional_support', input_functional_support.val());
+			tokens.set('token_update_technical_support', input_technical_support.val());
+			tokens.set('token_update_url', input_url.val());
 		} else {
 			/* --- New record --- */
 			console.log('SUBMIT NEW');
@@ -78,6 +101,12 @@ require([
 			tokens.set('token_create_name', input_name.val());
 			tokens.set('token_create_type', input_type.val());
 			tokens.set('token_create_description', input_description.val());
+
+			tokens.set('token_create_contact', input_contact.val());
+			tokens.set('token_create_functional_support', input_functional_support.val());
+			tokens.set('token_create_technical_support', input_technical_support.val());
+			tokens.set('token_create_url', input_url.val());
+
 		}
 		console.log('Submit button clicked done');
 	});
