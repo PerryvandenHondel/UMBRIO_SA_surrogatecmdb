@@ -1,11 +1,11 @@
 col_scmdb_application
-    app_name
-    app_application_id
-    app_type
+    >app_name
+    >app_application_id
+    >app_type
         Server
         Client
         Webbased
-    app_description
+    >app_description
     app_contact
         E-mail Contact DisplayName
     app_functional_support
