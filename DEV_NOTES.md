@@ -30,7 +30,7 @@ col_scmdb_system
         hostname.domain.local
     sys_description
     sys_role
-    sys_environment
+    sys_environment (drop down list)
         Development
         Test
         Acceptance
