@@ -21,11 +21,18 @@
         | eval sys_environment="$token_create_environment$"
         | eval sys_network_zone="$token_create_network_zone$"
         | eval sys_ad_domain="$token_create_ad_domain$"
+
+        | eval sys_ipv4="$token_create_ipv4$"
+        | eval sys_ipv6="$token_create_ipv6$"
+        | eval sys_os="$token_create_os$"
+        | eval sys_contact="$token_create_contact$"
+        | eval sys_vm_cluster="$token_create_vm_cluster$"
+        
         | eval sys_created_date=now()
         | eval sys_updated_date=now()
         | eval sys_created_user="$env:user$"
         | eval sys_updated_user="$env:user$"]
-      | table sys_application_id, sys_host_name, sys_fqdn, sys_description, sys_role, sys_environment, sys_network_zone, sys_ad_domain, sys_created_date, sys_updated_date, sys_created_user, sys_updated_user
+      | table sys_application_id, sys_host_name, sys_fqdn, sys_description, sys_role, sys_environment, sys_network_zone, sys_ad_domain, sys_ipv4, sys_ipv6, sys_os, sys_contact, sys_vm_cluster, sys_created_date, sys_updated_date, sys_created_user, sys_updated_user
       | outputlookup kvs_scmdb_system
     </query>  
   </search>
@@ -44,6 +51,13 @@
       | eval sys_environment="$token_update_environment$"
       | eval sys_network_zone="$token_update_network_zone$"
       | eval sys_ad_domain="$token_update_ad_domain$"
+
+      | eval sys_ipv4="$token_update_ipv4$"
+      | eval sys_ipv6="$token_update_ipv6$"
+      | eval sys_os="$token_update_os$"
+      | eval sys_contact="$token_update_contact$"
+      | eval sys_vm_cluster="$token_update_vm_cluster$"
+
       | eval sys_updated_date=now()
       | eval sys_updated_user="$env:user$"
       | outputlookup kvs_scmdb_system append=t
@@ -147,6 +161,32 @@
           	  <label for="label_ad_domain">AD Domain:</label>
               <input style="width: 95%" type="text" name="name_sys_ad_domain"/>
             </div>
+
+             <div>
+          	  <label for="label_ipv4">IPv4 Address:</label>
+               <input style="width: 35%" type="text" name="name_sys_ipv4"/>
+            </div>
+
+            <div>
+          	  <label for="label_ipv6">IPv6 Address:</label>
+              <input style="width: 55%" type="text" name="name_sys_ipv6"/>
+            </div>
+
+            <div>
+          	  <label for="label_os">OS:</label>
+              <input style="width: 95%" type="text" name="name_sys_os"/>
+            </div>
+
+            <div>
+          	  <label for="label_contact">Contact:</label>
+              <input style="width: 95%" type="text" name="name_sys_contact"/>
+            </div>
+
+            <div>
+          	  <label for="label_vm_cluster">VM Cluster:</label>
+              <input style="width: 95%" type="text" name="name_sys_vm_cluster"/>
+            </div>
+
 
             <!--
             <div>

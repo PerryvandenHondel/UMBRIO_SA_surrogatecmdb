@@ -74,11 +74,16 @@ require([
 			val_host_name = e.data['row.sys_host_name'];
 			val_fqdn = e.data['row.sys_fqdn'];
 			val_description = e.data['row.sys_description'];
-			
 			val_role = e.data['row.sys_role'];
 			val_environment = e.data['row.sys_environment'];
 			val_network_zone = e.data['row.sys_network_zone'];
 			val_ad_domain = e.data['row.sys_ad_domain'];
+
+			val_ipv4 = e.data['row.sys_ipv4'];
+			val_ipv6 = e.data['row.sys_ipv6'];
+			val_os = e.data['row.sys_os'];
+			val_contact = e.data['row.sys_contact'];
+			val_vm_cluster = e.data['row.sys_vm_cluster'];
 
 			
 			console.log('UPDATE>val_application_id=', val_application_id);
@@ -90,12 +95,16 @@ require([
 			input_host_name.val(val_host_name);
 			input_fqdn.val(val_fqdn);
 			input_description.val(val_description);
-			
 			input_role.val(val_role);
 			input_environment.val(val_environment);
 			input_network_zone.val(val_network_zone);
-			input_ad_domain.val(val_ad_domainn);
+			input_ad_domain.val(val_ad_domain);
 
+			input_ipv4.val(val_ipv4);
+			input_ipv6.val(val_ipv6);
+			input_os.val(val_os);
+			input_contact.val(val_contact);
+			input_vm_cluster.val(val_vm_cluster);
 
 			
 		} else if(e['field'] === 'Delete'){
@@ -132,11 +141,16 @@ require([
 			tokens.set('token_update_host_name', input_host_name.val());
 			tokens.set('token_update_fqdn', input_fqdn.val());
 			tokens.set('token_update_description', input_description.val());
-
 			tokens.set('token_update_role', input_role.val());
 			tokens.set('token_update_environment', input_environment.val());
 			tokens.set('token_update_network_zone', input_network_zone.val());
 			tokens.set('token_update_ad_domain', input_ad_domain.val());
+
+			tokens.set('token_update_ipv4', input_ipv4.val());
+			tokens.set('token_update_ipv6', input_ipv6.val());
+			tokens.set('token_update_os', input_os.val());
+			tokens.set('token_update_contact', input_contact.val());
+			tokens.set('token_update_vm_cluster', input_vm_cluster.val());
 		} else {
 			/* --- New record --- */
 			console.log('NEW RECORD');
@@ -148,11 +162,16 @@ require([
 			tokens.set('token_create_host_name', input_host_name.val());
 			tokens.set('token_create_fqdn', input_fqdn.val());
 			tokens.set('token_create_description', input_description.val());
-			
 			tokens.set('token_create_role', input_role.val());
 			tokens.set('token_create_environment', input_environment.val());
 			tokens.set('token_create_network_zone', input_network_zone.val());
 			tokens.set('token_create_ad_domain', input_ad_domain.val());
+
+			tokens.set('token_create_ipv4', input_ipv4.val());
+			tokens.set('token_create_ipv6', input_ipv6.val());
+			tokens.set('token_create_ost', input_os.val());
+			tokens.set('token_create_contact', input_contact.val());
+			tokens.set('token_create_vm_cluster', input_vm_cluster.val());
 		}
 	});
 
@@ -183,5 +202,5 @@ require([
 		tokens.unset('token_delete_key');
 	});
 
-	
+
 });
