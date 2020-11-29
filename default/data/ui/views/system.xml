@@ -1,4 +1,4 @@
-<dashboard script="code_system.js" stylesheet="style.css">
+<dashboard script="system.js" stylesheet="style.css">
   
   <label>System</label>
   
