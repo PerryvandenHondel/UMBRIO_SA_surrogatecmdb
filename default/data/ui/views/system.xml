@@ -2,10 +2,7 @@
   
   <label>System</label>
   
-  <search id="token_search_create" depends="$token_create_application_id$,
-      $token_create_host_name$,
-      $token_create_fqdn$,
-      $token_create_description$">
+  <search id="token_search_create">
     <query>
       | inputlookup kvs_scmdb_system 
       | append [ stats count
@@ -23,11 +20,7 @@
   </search>
 
 
-  <search id="token_search_update" depends="$token_update_key$, 
-      $token_update_application_id$,
-      $token_update_host_name$,
-      $token_update_fqdn$,
-      $token_update_description$">
+  <search id="token_search_update">
     <query>
       | inputlookup kvs_scmdb_system 
       | eval key=_key 
@@ -43,7 +36,7 @@
   </search>
   
     
-  <search id="token_search_delete" depends="$token_delete_key$">
+  <search id="token_search_delete">
     <query>
       | inputlookup kvs_scmdb_system
       | eval key=_key
