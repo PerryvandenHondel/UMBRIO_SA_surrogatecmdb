@@ -80,7 +80,7 @@
             | inputlookup kvs_scmdb_system 
             | eval Update="Update" 
             | eval Delete="Delete" 
-            | table Update, sys_application_id, Delete, sys_host_name, *
+            | table Update, sys_application_id, sys_host_name, *, Delete
             | sort sys_host_name
           </query>
           <earliest>0</earliest>
