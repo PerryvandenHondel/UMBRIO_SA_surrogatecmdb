@@ -2,9 +2,7 @@
   
   <label>Application</label>
   
-  <search id="token_search_create" depends="$token_create_application_id$,
-      $token_create_name$">
-
+  <search id="token_search_create">
     <query>
       | inputlookup kvs_scmdb_application 
       | append [ stats count
