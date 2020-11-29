@@ -24,9 +24,7 @@
   </search>
 
 
-  <search id="token_search_update" depends="$token_update_key$, 
-      $token_update_application_id$,
-      $token_update_name$">
+  <search id="token_search_update">
     <query>
       | inputlookup kvs_scmdb_application 
       | eval key=_key 
@@ -46,7 +44,7 @@
   </search>
   
     
-  <search id="token_search_delete" depends="$token_delete_key$">
+  <search id="token_search_delete">
     <query>
       | inputlookup kvs_scmdb_application
       | eval key=_key
