@@ -17,7 +17,7 @@
         | eval sys_updated_date=now()
         | eval sys_created_user="$env:user$"
         | eval sys_updated_user="$env:user$"]
-      | table sys_application_id, sys_name, sys_fqdn, sys_description, sys_created_date, sys_updated_date, sys_created_user, sys_updated_user
+      | table sys_application_id, sys_host_name, sys_fqdn, sys_description, sys_created_date, sys_updated_date, sys_created_user, sys_updated_user
       | outputlookup kvs_scmdb_system
     </query>  
   </search>
