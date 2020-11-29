@@ -1,4 +1,4 @@
-<dashboard script="code_application.js" stylesheet="style.css">
+<dashboard script="application.js" stylesheet="style.css">
   
   <label>Application</label>
   
