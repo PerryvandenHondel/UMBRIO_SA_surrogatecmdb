@@ -78,7 +78,6 @@ require([
 			val_environment = e.data['row.sys_environment'];
 			val_network_zone = e.data['row.sys_network_zone'];
 			val_ad_domain = e.data['row.sys_ad_domain'];
-
 			val_ipv4 = e.data['row.sys_ipv4'];
 			val_ipv6 = e.data['row.sys_ipv6'];
 			val_os = e.data['row.sys_os'];
@@ -99,7 +98,6 @@ require([
 			input_environment.val(val_environment);
 			input_network_zone.val(val_network_zone);
 			input_ad_domain.val(val_ad_domain);
-
 			input_ipv4.val(val_ipv4);
 			input_ipv6.val(val_ipv6);
 			input_os.val(val_os);
@@ -130,12 +128,6 @@ require([
 			/* --- Update Record --- */
 			console.log('UPDATE RECORD');
 
-			console.log('Submit button clicked, update record', input_key.val());
-			console.log('UPDATE>input_key', input_key.val());
-			console.log('UPDATE>input_host_name', input_host_name.val());
-			console.log('UPDATE>input_application_id', input_application_id.val());
-
-			
 			tokens.set('token_update_application_id', input_application_id.val());
 			tokens.set('token_update_key', input_key.val());
 			tokens.set('token_update_host_name', input_host_name.val());
@@ -151,6 +143,13 @@ require([
 			tokens.set('token_update_os', input_os.val());
 			tokens.set('token_update_contact', input_contact.val());
 			tokens.set('token_update_vm_cluster', input_vm_cluster.val());
+
+			console.log('UPDATE>input_ipv4', input_ipv4.val());
+			console.log('UPDATE>input_ipv6', input_ipv6.val());
+			console.log('UPDATE>update_os', update_os.val());
+			console.log('UPDATE>input_contact', input_contact.val());
+			console.log('UPDATE>input_vm_cluster', input_vm_cluster.val());
+
 		} else {
 			/* --- New record --- */
 			console.log('NEW RECORD');
@@ -166,12 +165,17 @@ require([
 			tokens.set('token_create_environment', input_environment.val());
 			tokens.set('token_create_network_zone', input_network_zone.val());
 			tokens.set('token_create_ad_domain', input_ad_domain.val());
-
 			tokens.set('token_create_ipv4', input_ipv4.val());
 			tokens.set('token_create_ipv6', input_ipv6.val());
-			tokens.set('token_create_ost', input_os.val());
+			tokens.set('token_create_os', input_os.val());
 			tokens.set('token_create_contact', input_contact.val());
 			tokens.set('token_create_vm_cluster', input_vm_cluster.val());
+
+			console.log('NEW>input_ipv4', input_ipv4.val());
+			console.log('NEW>input_ipv6', input_ipv6.val());
+			console.log('NEW>update_os', update_os.val());
+			console.log('NEW>input_contact', input_contact.val());
+			console.log('NEW>input_vm_cluster', input_vm_cluster.val());
 		}
 	});
 
