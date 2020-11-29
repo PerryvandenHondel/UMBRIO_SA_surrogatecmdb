@@ -137,10 +137,20 @@
               <textarea rows="3" cols="95%" name = "name_sys_role"/>
             </div>
 
+            <!--
             <div>
           	  <label for="label_environment">Environment:</label>
               <input style="width: 95%" type="text" name="name_sys_environment"/>
             </div>
+            -->
+            <label>Environment:</label>
+              <select name="name_sys_environment" style="width:35%">       
+              <option selected="selected" value="Development">Development</option>
+              <option value="Test">Test</option>
+              <option value="Acceptance">Acceptance</option>
+              <option value="Production">Production</option>
+              <option value="DMZ">DMZ</option>
+            </select>
 
             <div>
           	  <label for="label_network_zone">Network Zone:</label>
