@@ -58,20 +58,21 @@
 
   <!-- Drop down Category -->
   <fieldset submitButton="false">
-    <!-- Drop down selector for Requirement ID -->
-    <input type="dropdown" token="token_select_application_id" searchWhenChanged="true">
-      <label>Application ID:</label>
-      <fieldForLabel>app_application_id</fieldForLabel>
-      <fieldForValue>app_application_id</fieldForValue>
+    
+    <!-- Drop down selector for Application Name -->
+    <input type="dropdown" token="token_select_app_name" searchWhenChanged="true">
+      <label>Application Name:</label>
+      <fieldForLabel>app_name</fieldForLabel>
+      <fieldForValue>app_name</fieldForValue>
       <search>
-        <query>| inputlookup kvs_scmdb_application | dedup app_application_id | sort app_application_id | table app_application_id</query>
+        <query>| inputlookup kvs_scmdb_application | dedup app_name| sort app_name | table app_name</query>
         <earliest>-24h@h</earliest>
         <latest>now</latest>
       </search>
       <choice value="*">All</choice>
       <initialValue>*</initialValue>
-      <prefix>"</prefix>
-      <suffix>"</suffix>
+      <prefix></prefix>
+      <suffix></suffix>
       <default>*</default>
     </input>
 
@@ -95,7 +96,8 @@
         <search id="token_search_collection">
           <!-- Use search in SPL to use phase=*, will not work with where clause --> 
           <query>
-            | inputlookup kvs_scmdb_application 
+            | inputlookup kvs_scmdb_application
+            | search app_name="$token_select_app_name$"
             | eval Update="Update" 
             | eval Delete="Delete" 
             | table Update, app_application_id, app_name, *, Delete
