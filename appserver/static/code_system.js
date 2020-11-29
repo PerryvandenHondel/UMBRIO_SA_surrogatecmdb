@@ -95,7 +95,7 @@ require([
 			tokens.set('token_create_application_id', input_application_id.val());
 			tokens.set('token_create_host_name', input_host_name.val());
 			
-			comsole.log('NEW: token_create_host_name=', input_host_name.val())
+			console.log('NEW: token_create_host_name=', input_host_name.val())
 			console.log('Values: token_create_application_id=', input_application_id.val())
 		}
 	});
