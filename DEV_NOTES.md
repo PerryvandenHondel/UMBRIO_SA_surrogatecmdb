@@ -23,8 +23,8 @@ col_scmdb_application
 
 
 col_scmdb_system
-    sys_host_name
-    sys_application_id
+    >sys_host_name
+    >sys_application_id
         Linked to col_scmdb_application-->app_application_id
     sys_fqdn
         hostname.domain.local
@@ -45,7 +45,7 @@ col_scmdb_system
     sys_contact
         E-mail Contact DisplayName
     sys_vm_cluster
-    sys_created_date
-    sys_updated_date
-    sys_created_user
-    sys_updated_user
+    >sys_created_date
+    >sys_updated_date
+    >sys_created_user
+    >sys_updated_user
