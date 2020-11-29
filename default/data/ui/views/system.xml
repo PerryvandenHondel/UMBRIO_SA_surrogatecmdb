@@ -1,12 +1,5 @@
 <dashboard script="system.js" stylesheet="style.css">
-  
-  <!--
-  role
-  environment
-  network_zone
-  ad_domain
-  -->
-
+ 
   <label>System</label>
   
   <search id="token_search_create">
@@ -21,13 +14,11 @@
         | eval sys_environment="$token_create_environment$"
         | eval sys_network_zone="$token_create_network_zone$"
         | eval sys_ad_domain="$token_create_ad_domain$"
-
         | eval sys_ipv4="$token_create_ipv4$"
         | eval sys_ipv6="$token_create_ipv6$"
         | eval sys_os="$token_create_os$"
         | eval sys_contact="$token_create_contact$"
         | eval sys_vm_cluster="$token_create_vm_cluster$"
-        
         | eval sys_created_date=now()
         | eval sys_updated_date=now()
         | eval sys_created_user="$env:user$"
@@ -51,13 +42,11 @@
       | eval sys_environment="$token_update_environment$"
       | eval sys_network_zone="$token_update_network_zone$"
       | eval sys_ad_domain="$token_update_ad_domain$"
-
       | eval sys_ipv4="$token_update_ipv4$"
       | eval sys_ipv6="$token_update_ipv6$"
       | eval sys_os="$token_update_os$"
       | eval sys_contact="$token_update_contact$"
       | eval sys_vm_cluster="$token_update_vm_cluster$"
-
       | eval sys_updated_date=now()
       | eval sys_updated_user="$env:user$"
       | outputlookup kvs_scmdb_system append=t
@@ -113,6 +102,7 @@
         -->
       </table>
     </panel>
+
     <!-- Left side of the dashboard where the form is -->
      <panel id="token_panel_form">
       <html>
@@ -144,7 +134,7 @@
 
             <div>
           	  <label for="label_role">Role:</label>
-              <input style="width: 95%" type="text" name="name_sys_role"/>
+              <textarea rows="3" cols="95%" name = "name_sys_role"/>
             </div>
 
             <div>
