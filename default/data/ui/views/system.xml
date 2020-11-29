@@ -67,9 +67,43 @@
   <!-- Top selector drop downs -->
 
   <fieldset submitButton="false">
-  </fieldset>
+ 
 
-  <row>
+    <input type="dropdown" token="token_select_host_name" searchWhenChanged="true">
+      <label>Host Name:</label>
+      <fieldForLabel>sys_host_name</fieldForLabel>
+      <fieldForValue>sys_host_name</fieldForValue>
+      <search>
+        <query>| inputlookup kvs_scmdb_system | dedup sys_host_name | sort sys_host_name | table sys_host_name</query>
+        <earliest>-24h@h</earliest>
+        <latest>now</latest>
+      </search>
+      <choice value="*">All</choice>
+      <initialValue>*</initialValue>
+      <prefix></prefix>
+      <suffix></suffix>
+      <default>*</default>
+    </input>
+
+    <input type="dropdown" token="token_select_sys_application_id" searchWhenChanged="true">
+      <label>Application ID:</label>
+      <fieldForLabel>sys_application_id</fieldForLabel>
+      <fieldForValue>sys_application_id</fieldForValue>
+      <search>
+        <query>| inputlookup kvs_scmdb_system | dedup sys_application_id | sort sys_application_id | table sys_application_id</query>
+        <earliest>-24h@h</earliest>
+        <latest>now</latest>
+      </search>
+      <choice value="*">All</choice>
+      <initialValue>*</initialValue>
+      <prefix></prefix>
+      <suffix></suffix>
+      <default>*</default>
+    </input>
+
+   </fieldset>
+
+    <row>
     <!-- Right side of the dashboard where the list of all requirements is -->
     <panel id="token_panel_collection">
       <table id="token_table_collection">
@@ -77,7 +111,8 @@
         <search id="token_search_collection">
           <!-- Use search in SPL to use phase=*, will not work with where clause --> 
           <query>
-            | inputlookup kvs_scmdb_system 
+            | inputlookup kvs_scmdb_system
+            | search (sys_host_name="$token_select_host_name$" AND sys_application_id="$token_select_sys_application_id$")
             | eval Update="Update" 
             | eval Delete="Delete" 
             | table Update, sys_application_id, sys_host_name, *, Delete
