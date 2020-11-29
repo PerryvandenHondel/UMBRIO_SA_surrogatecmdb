@@ -29,15 +29,15 @@ col_scmdb_system
     >sys_fqdn
         hostname.domain.local
     >sys_description
-    sys_role
-    sys_environment (drop down list)
+    >sys_role
+    >sys_environment (drop down list)
         Development
         Test
         Acceptance
         Production
         DMZ
-    sys_network_zone
-    sys_domain
+    >sys_network_zone
+    >sys_ad_domain
     sys_ipv4
         111.222.333.444
     sys_ipv6

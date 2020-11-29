@@ -1,5 +1,12 @@
 <dashboard script="system.js" stylesheet="style.css">
   
+  <!--
+  role
+  environment
+  network_zone
+  ad_domain
+  -->
+
   <label>System</label>
   
   <search id="token_search_create">
@@ -9,12 +16,16 @@
         | eval sys_application_id="$token_create_application_id$" 
         | eval sys_host_name="$token_create_host_name$" 
         | eval sys_fqdn="$token_create_fqdn$" 
-        | eval sys_description="$token_create_description$" 
+        | eval sys_description="$token_create_description$"
+        | eval sys_role="$token_create_role$"
+        | eval sys_environment="$token_create_environment$"
+        | eval sys_network_zone="$token_create_network_zone$"
+        | eval sys_ad_domain="$token_create_ad_domain$"
         | eval sys_created_date=now()
         | eval sys_updated_date=now()
         | eval sys_created_user="$env:user$"
         | eval sys_updated_user="$env:user$"]
-      | table sys_application_id, sys_host_name, sys_fqdn, sys_description, sys_created_date, sys_updated_date, sys_created_user, sys_updated_user
+      | table sys_application_id, sys_host_name, sys_fqdn, sys_description, sys_role, sys_environment, sys_network_zone, sys_ad_domain, sys_created_date, sys_updated_date, sys_created_user, sys_updated_user
       | outputlookup kvs_scmdb_system
     </query>  
   </search>
@@ -28,7 +39,11 @@
       | eval sys_application_id="$token_update_application_id$"
       | eval sys_host_name="$token_update_host_name$"
       | eval sys_fqdn="$token_update_fqdn$" 
-      | eval sys_description="$token_update_description$" 
+      | eval sys_description="$token_update_description$"
+      | eval sys_role="$token_update_role$"
+      | eval sys_environment="$token_update_environment$"
+      | eval sys_network_zone="$token_update_network_zone$"
+      | eval sys_ad_domain="$token_update_ad_domain$"
       | eval sys_updated_date=now()
       | eval sys_updated_user="$env:user$"
       | outputlookup kvs_scmdb_system append=t
@@ -111,6 +126,26 @@
             <div>
           	  <label for="label_description">Description:</label>
               <textarea rows="3" cols="95%" name = "name_sys_description"/>
+            </div>
+
+            <div>
+          	  <label for="label_role">Role:</label>
+              <input style="width: 95%" type="text" name="name_sys_role"/>
+            </div>
+
+            <div>
+          	  <label for="label_environment">Environment:</label>
+              <input style="width: 95%" type="text" name="name_sys_environment"/>
+            </div>
+
+            <div>
+          	  <label for="label_network_zone">Network Zone:</label>
+              <input style="width: 95%" type="text" name="name_sys_network_zone"/>
+            </div>
+
+            <div>
+          	  <label for="label_ad_domain">AD Domain:</label>
+              <input style="width: 95%" type="text" name="name_sys_ad_domain"/>
             </div>
 
             <!--
