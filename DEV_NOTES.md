@@ -49,3 +49,18 @@ col_scmdb_system
     >sys_updated_date
     >sys_created_user
     >sys_updated_user
+
+
+token_search_create">
+
+    depends="$token_create_application_id$,
+      $token_create_name$">
+  -->
+
+
+  <search id="token_search_update" depends="$token_update_key$, 
+      $token_update_application_id$,
+      $token_update_name$">
+
+
+<search id="token_search_delete" depends="$token_delete_key$">
