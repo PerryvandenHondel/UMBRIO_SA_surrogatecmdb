@@ -22,7 +22,6 @@ require([
 	var searchUpdate = mvc.Components.get('token_search_update');
 	var searchCreate = mvc.Components.get('token_search_create');
 	var searchDelete = mvc.Components.get('token_search_delete');
-
 	var searchCollection = mvc.Components.get('token_search_collection');
 
 	/* --- Table Reference --- */
@@ -34,7 +33,6 @@ require([
 	var input_application_id = $('[name="name_sys_application_id"]');
 	var input_fqdn = $('[name="name_sys_fqdn"]');
 	var input_description = $('[name="name_sys_description"]');
-	
 	var input_role = $('[name="name_sys_role"]');
 	var input_environment = $('[name="name_sys_environment"]');
 	var input_network_zone = $('[name="name_sys_network_zone"]');
@@ -42,6 +40,7 @@ require([
 	var input_ipv4 = $('[name="name_sys_ipv4"]');
 	var input_ipv6 = $('[name="name_sys_ipv6"]');
 	var input_os = $('[name="name_sys_os"]');
+	var input_status = $('[name="name_sys_status"]');
 	var input_contact = $('[name="name_sys_contact"]');
 	var input_vm_cluster = $('[name="name_sys_vm_cluster"]');
 	
@@ -63,10 +62,10 @@ require([
 		var val_ipv4;
 		var val_ipv6;
 		var val_os;
+		var val_status;
 		var val_contact;
 		var val_vm_cluster;
 		
-
 		if(e['field'] === 'Update'){ 
 			/* --- Pull values from the current table row --- */
 			val_key = e.data['row._key'];
@@ -81,10 +80,10 @@ require([
 			val_ipv4 = e.data['row.sys_ipv4'];
 			val_ipv6 = e.data['row.sys_ipv6'];
 			val_os = e.data['row.sys_os'];
+			val_status = e.data['row.sys_status'];
 			val_contact = e.data['row.sys_contact'];
 			val_vm_cluster = e.data['row.sys_vm_cluster'];
 
-			
 			console.log('UPDATE>val_application_id=', val_application_id);
 			console.log('UPDATE>val_host_name=', val_host_name);
 
@@ -101,13 +100,12 @@ require([
 			input_ipv4.val(val_ipv4);
 			input_ipv6.val(val_ipv6);
 			input_os.val(val_os);
+			input_status.val(val_status);
 			input_contact.val(val_contact);
 			input_vm_cluster.val(val_vm_cluster);
 
-			
 		} else if(e['field'] === 'Delete'){
-			tokens.set('token_delete_key', e.data['row._key']);
-			
+			tokens.set('token_delete_key', e.data['row._key']);			
 			console.log('DELETE _key=', e.data['row._key']);
 		}
 
@@ -137,10 +135,10 @@ require([
 			tokens.set('token_update_environment', input_environment.val());
 			tokens.set('token_update_network_zone', input_network_zone.val());
 			tokens.set('token_update_ad_domain', input_ad_domain.val());
-
 			tokens.set('token_update_ipv4', input_ipv4.val());
 			tokens.set('token_update_ipv6', input_ipv6.val());
 			tokens.set('token_update_os', input_os.val());
+			tokens.set('token_update_status', input_status.val());
 			tokens.set('token_update_contact', input_contact.val());
 			tokens.set('token_update_vm_cluster', input_vm_cluster.val());
 
@@ -168,6 +166,7 @@ require([
 			tokens.set('token_create_ipv4', input_ipv4.val());
 			tokens.set('token_create_ipv6', input_ipv6.val());
 			tokens.set('token_create_os', input_os.val());
+			tokens.set('token_create_status', input_status.val());
 			tokens.set('token_create_contact', input_contact.val());
 			tokens.set('token_create_vm_cluster', input_vm_cluster.val());
 
