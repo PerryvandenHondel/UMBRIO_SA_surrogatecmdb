@@ -97,7 +97,7 @@
           <!-- Use search in SPL to use phase=*, will not work with where clause --> 
           <query>
             | inputlookup kvs_scmdb_application
-            | search app_name="$token_select_app_name$"
+            | search (app_name="$token_select_app_name$" AND app_name="$token_search_app_name$")
             | eval Update="Update" 
             | eval Delete="Delete" 
             | table Update, app_application_id, app_name, *, Delete
