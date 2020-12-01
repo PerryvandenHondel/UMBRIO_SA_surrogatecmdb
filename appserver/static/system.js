@@ -43,6 +43,7 @@ require([
 	var input_status = $('[name="name_sys_status"]');
 	var input_contact = $('[name="name_sys_contact"]');
 	var input_vm_cluster = $('[name="name_sys_vm_cluster"]');
+	var input_type = $('[name="name_sys_type"]');
 	
 	
 	
@@ -65,6 +66,7 @@ require([
 		var val_status;
 		var val_contact;
 		var val_vm_cluster;
+		var val_type;
 		
 		if(e['field'] === 'Update'){ 
 			/* --- Pull values from the current table row --- */
@@ -83,6 +85,7 @@ require([
 			val_status = e.data['row.sys_status'];
 			val_contact = e.data['row.sys_contact'];
 			val_vm_cluster = e.data['row.sys_vm_cluster'];
+			val_vm_type = e.data['row.sys_type'];
 
 			console.log('UPDATE>val_application_id=', val_application_id);
 			console.log('UPDATE>val_host_name=', val_host_name);
@@ -103,6 +106,7 @@ require([
 			input_status.val(val_status);
 			input_contact.val(val_contact);
 			input_vm_cluster.val(val_vm_cluster);
+			input_type.val(val_type);
 
 		} else if(e['field'] === 'Delete'){
 			tokens.set('token_delete_key', e.data['row._key']);			
@@ -141,6 +145,7 @@ require([
 			tokens.set('token_update_status', input_status.val());
 			tokens.set('token_update_contact', input_contact.val());
 			tokens.set('token_update_vm_cluster', input_vm_cluster.val());
+			tokens.set('token_update_type', input_type.val());
 
 			console.log('UPDATE>input_ipv4', input_ipv4.val());
 			console.log('UPDATE>input_ipv6', input_ipv6.val());
@@ -169,6 +174,8 @@ require([
 			tokens.set('token_create_status', input_status.val());
 			tokens.set('token_create_contact', input_contact.val());
 			tokens.set('token_create_vm_cluster', input_vm_cluster.val());
+			tokens.set('token_create_type', input_type.val());
+
 
 			console.log('NEW>input_ipv4', input_ipv4.val());
 			console.log('NEW>input_ipv6', input_ipv6.val());

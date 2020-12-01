@@ -20,11 +20,12 @@
         | eval sys_status="$token_create_status$"
         | eval sys_contact="$token_create_contact$"
         | eval sys_vm_cluster="$token_create_vm_cluster$"
+        | eval sys_type="$token_create_type$"
         | eval sys_created_date=now()
         | eval sys_updated_date=now()
         | eval sys_created_user="$env:user$"
         | eval sys_updated_user="$env:user$"]
-      | table sys_application_id, sys_host_name, sys_fqdn, sys_description, sys_role, sys_environment, sys_network_zone, sys_ad_domain, sys_ipv4, sys_ipv6, sys_os, sys_status, sys_contact, sys_vm_cluster, sys_created_date, sys_updated_date, sys_created_user, sys_updated_user
+      | table sys_application_id, sys_host_name, sys_fqdn, sys_description, sys_role, sys_environment, sys_network_zone, sys_ad_domain, sys_ipv4, sys_ipv6, sys_os, sys_status, sys_contact, sys_vm_cluster, sys_type, sys_created_date, sys_updated_date, sys_created_user, sys_updated_user
       | outputlookup kvs_scmdb_system
     </query>  
   </search>
@@ -49,6 +50,7 @@
       | eval sys_status="$token_update_status$"
       | eval sys_contact="$token_update_contact$"
       | eval sys_vm_cluster="$token_update_vm_cluster$"
+      | eval sys_type="$token_update_type$"
       | eval sys_updated_date=now()
       | eval sys_updated_user="$env:user$"
       | outputlookup kvs_scmdb_system append=t
@@ -117,8 +119,6 @@
       <suffix></suffix>
       <default>*</default>
     </input>
-
-
 
    </fieldset>
 
@@ -231,11 +231,17 @@
               <input style="width: 95%" type="text" name="name_sys_os"/>
             </div>
 
-              <label>Status:</label>
+            <label>Status:</label>
               <select name="name_sys_status" style="width:35%">       
               <option selected="selected" value="In use">In use</option>
               <option value="Available">Available</option>
               <option value="Phase out">Phase out</option>
+            </select>
+
+             <label>System Type:</label>
+              <select name="name_sys_type" style="width:35%">       
+              <option selected="selected" value="Server">Server</option>
+              <option value="Client">Client</option>
             </select>
 
             <div>
