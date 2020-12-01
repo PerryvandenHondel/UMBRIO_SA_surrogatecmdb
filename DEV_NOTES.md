@@ -2,9 +2,7 @@ col_scmdb_application
     >app_name
     >app_application_id
     >app_type
-        Server
-        Client
-        Webbased
+        Web
     >app_description
     >app_contact
         E-mail Contact DisplayName
@@ -45,6 +43,9 @@ col_scmdb_system
     sys_contact
         E-mail Contact DisplayName
     sys_vm_cluster
+    sys_type
+        Server
+        Client
     >sys_created_date
     >sys_updated_date
     >sys_created_user
