@@ -183,20 +183,14 @@
 
             <div>
           	  <label for="label_description">Description:</label>
-              <textarea rows="3" cols="95%" name = "name_sys_description"/>
+              <textarea rows="3" cols="95%" name="name_sys_description"/>
             </div>
 
             <div>
           	  <label for="label_role">Role:</label>
-              <textarea rows="3" cols="95%" name = "name_sys_role"/>
+              <textarea rows="3" cols="95%" name="name_sys_role"/>
             </div>
 
-            <!--
-            <div>
-          	  <label for="label_environment">Environment:</label>
-              <input style="width: 95%" type="text" name="name_sys_environment"/>
-            </div>
-            -->
             <label>Environment:</label>
               <select name="name_sys_environment" style="width:35%">       
               <option selected="selected" value="Development">Development</option>

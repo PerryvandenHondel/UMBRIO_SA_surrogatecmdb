@@ -45,8 +45,6 @@ require([
 	var input_vm_cluster = $('[name="name_sys_vm_cluster"]');
 	var input_type = $('[name="name_sys_type"]');
 	
-	
-	
     tableCollection.on('click', function(e){
 		e.preventDefault();
 
@@ -147,18 +145,12 @@ require([
 			tokens.set('token_update_vm_cluster', input_vm_cluster.val());
 			tokens.set('token_update_type', input_type.val());
 
-			console.log('UPDATE>input_ipv4', input_ipv4.val());
-			console.log('UPDATE>input_ipv6', input_ipv6.val());
-			console.log('UPDATE>update_os', update_os.val());
-			console.log('UPDATE>input_contact', input_contact.val());
-			console.log('UPDATE>input_vm_cluster', input_vm_cluster.val());
+			console.log('UPDATE>input_role=', input_role.val());
 
 		} else {
 			/* --- New record --- */
 			console.log('NEW RECORD');
 			/* tokens.set('create_tok', 'true'); */
-			console.log('NEW: token_create_host_name=', input_host_name.val())
-			console.log('Values: token_create_application_id=', input_application_id.val())
 
 			tokens.set('token_create_application_id', input_application_id.val());
 			tokens.set('token_create_host_name', input_host_name.val());
@@ -177,11 +169,7 @@ require([
 			tokens.set('token_create_type', input_type.val());
 
 
-			console.log('NEW>input_ipv4', input_ipv4.val());
-			console.log('NEW>input_ipv6', input_ipv6.val());
-			console.log('NEW>update_os', update_os.val());
-			console.log('NEW>input_contact', input_contact.val());
-			console.log('NEW>input_vm_cluster', input_vm_cluster.val());
+			console.log('NEW>input_role=', input_role.val());
 		}
 	});
 
