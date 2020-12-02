@@ -104,6 +104,24 @@
       <default>*</default>
     </input>
 
+    <!-- In the search SPL add prefix with "* and suffix with *"; so search value will be "*text to search*" -->
+    <input type="text" token="token_search_description" searchWhenChanged="true">
+      <label>Search description:</label>
+      <default>*</default>
+      <initialValue>*</initialValue>
+       <prefix>*</prefix>
+      <suffix>*</suffix>
+    </input>
+
+    <!-- In the search SPL add prefix with "* and suffix with *"; so search value will be "*text to search*" -->
+    <input type="text" token="token_search_role" searchWhenChanged="true">
+      <label>Search role:</label>
+      <default>*</default>
+      <initialValue>*</initialValue>
+       <prefix>*</prefix>
+      <suffix>*</suffix>
+    </input>
+
     <input type="dropdown" token="token_select_status" searchWhenChanged="true">
       <label>Status:</label>
       <fieldForLabel>sys_status</fieldForLabel>
@@ -131,7 +149,7 @@
           <!-- Use search in SPL to use phase=*, will not work with where clause --> 
           <query>
             | inputlookup kvs_scmdb_system
-            | search (sys_host_name="$token_select_host_name$" AND sys_application_id="$token_select_sys_application_id$" AND sys_status="$token_select_status$")
+            | search (sys_host_name="$token_select_host_name$" AND sys_application_id="$token_select_sys_application_id$" AND sys_description="$token_search_description$" AND sys_status="$token_select_status$")
             | eval Update="Update" 
             | eval Delete="Delete" 
             | table Update, sys_application_id, sys_host_name, *, Delete
@@ -226,17 +244,26 @@
             </div>
 
             <label>Status:</label>
-              <select name="name_sys_status" style="width:35%">       
+            <select name="name_sys_status" style="width:35%">       
               <option selected="selected" value="In use">In use</option>
               <option value="Available">Available</option>
               <option value="Phase out">Phase out</option>
             </select>
 
-             <label>System Type:</label>
-              <select name="name_sys_type" style="width:35%">       
+            
+            <label>Type:</label>
+            <select name="name_sys_type" style="width:35%">       
               <option selected="selected" value="Server">Server</option>
               <option value="Client">Client</option>
             </select>
+            
+
+            <!--
+            <div>
+          	  <label for="label_type">Type:</label>
+              <input style="width: 35%" type="text" name="name_sys_type"/>
+            </div>
+            -->
 
             <div>
           	  <label for="label_contact">Contact:</label>

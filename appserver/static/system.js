@@ -83,10 +83,11 @@ require([
 			val_status = e.data['row.sys_status'];
 			val_contact = e.data['row.sys_contact'];
 			val_vm_cluster = e.data['row.sys_vm_cluster'];
-			val_vm_type = e.data['row.sys_type'];
+			val_type = e.data['row.sys_type'];
 
-			console.log('UPDATE>val_application_id=', val_application_id);
-			console.log('UPDATE>val_host_name=', val_host_name);
+			
+			console.log('UPDATE>val_type=', val_type);
+
 
 			/* --- Insert values from rows into input fields --- */
 			input_key.val(val_key);
@@ -145,7 +146,7 @@ require([
 			tokens.set('token_update_vm_cluster', input_vm_cluster.val());
 			tokens.set('token_update_type', input_type.val());
 
-			console.log('UPDATE>input_role=', input_role.val());
+			console.log('UPDATE>input_type=', input_type.val());
 
 		} else {
 			/* --- New record --- */
@@ -168,8 +169,7 @@ require([
 			tokens.set('token_create_vm_cluster', input_vm_cluster.val());
 			tokens.set('token_create_type', input_type.val());
 
-
-			console.log('NEW>input_role=', input_role.val());
+			console.log('NEW>input_type=', input_type.val());
 		}
 	});
 
