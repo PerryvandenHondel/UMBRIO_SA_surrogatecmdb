@@ -179,7 +179,9 @@
      <panel id="token_panel_form">
       <html>
         <form>
-          <h1>System Details</h1>
+          <div class="column_left">
+
+            <h1>System Details</h1>
 
             <!-- Hidden input for KV Store key field -->
             <input type="hidden" name="_key"/>
@@ -227,8 +229,10 @@
           	  <label for="label_ad_domain">AD Domain:</label>
               <input style="width: 95%" type="text" name="name_sys_ad_domain"/>
             </div>
+          </div>
+          <div class="column_right">
 
-             <div>
+            <div>
           	  <label for="label_ipv4">IPv4 Address:</label>
                <input style="width: 35%" type="text" name="name_sys_ipv4"/>
             </div>
@@ -281,10 +285,11 @@
               <textarea rows="5" cols="95%" name = "name_sys_dummy"/>
             </div>
             -->
-          <div>
-            <p style="text-align:right">
+            <div>
+              <p style="text-align:right">
               <button class="button button4" id="id_button_submit">Submit</button>
-            </p> <!-- Alignment of the button to the right of the column -->
+              </p> <!-- Alignment of the button to the right of the column -->
+            </div>
           </div>
         </form>
       </html>
