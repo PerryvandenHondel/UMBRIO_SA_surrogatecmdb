@@ -1,15 +1,10 @@
 #token_panel_collection {
-    width: 50% !important;
+    width: 30% !important;
 }
 
 
 #token_panel_form {
-    width: 50% !important;
-}
-
-
-#token_panel_form {
-    width: 50% !important;
+    width: 70% !important;
 }
 
 
@@ -47,4 +42,15 @@ textarea {
 
 .button4 {
       border-radius: 12px;
+}
+
+
+.column_left { 
+  float: left; 
+  width: 50%; 
+}
+
+.column_right { 
+display: inline-block; 
+width: 50%; 
 }
