@@ -101,7 +101,7 @@
             | eval Update="Update" 
             | eval Delete="Delete" 
             | table Update, app_application_id, app_name, *, Delete
-            | sort name
+            | sort app_name
           </query>
           <earliest>0</earliest>
           <latest></latest>
