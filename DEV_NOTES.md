@@ -39,13 +39,16 @@ col_scmdb_system
     sys_ipv4
         111.222.333.444
     sys_ipv6
-    sys_os
+    sys_os                  Full description of the OS: Windows 10 Enterprise, RedHat Server 7.8
+    sys_os_platform         Platform of the OS: Windows, Linux, macOS
     sys_contact
         E-mail Contact DisplayName
     sys_vm_cluster
     sys_type
         Server
         Client
+    sys_asset_id            Unique code of the asset (Report+id)
+    sys_asset_updated       Date and time of last update of the asset
     >sys_created_date
     >sys_updated_date
     >sys_created_user
