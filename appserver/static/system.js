@@ -44,6 +44,10 @@ require([
 	var input_contact = $('[name="name_sys_contact"]');
 	var input_vm_cluster = $('[name="name_sys_vm_cluster"]');
 	var input_type = $('[name="name_sys_type"]');
+	var input_os_platform = $('[name="name_sys_os_platform"]');
+	var input_asset_id = $('[name="name_sys_asset_id"]');
+	var input_asset_updated = $('[name="name_sys_asset_updated"]');
+	
 	
     tableCollection.on('click', function(e){
 		e.preventDefault();
@@ -65,6 +69,10 @@ require([
 		var val_contact;
 		var val_vm_cluster;
 		var val_type;
+		var val_os_platform;
+		var val_asset_id;
+		var val_asset_updated;
+		
 		
 		if(e['field'] === 'Update'){ 
 			/* --- Pull values from the current table row --- */
@@ -85,7 +93,10 @@ require([
 			val_vm_cluster = e.data['row.sys_vm_cluster'];
 			val_type = e.data['row.sys_type'];
 
-			
+			val_os_platform = e.data['row.sys_os_platform'];
+			val_asset_id = e.data['row.sys_asset_id'];
+			val_asset_updated = e.data['row.sys_asset_updated'];
+
 			console.log('UPDATE>val_type=', val_type);
 
 
@@ -106,6 +117,10 @@ require([
 			input_contact.val(val_contact);
 			input_vm_cluster.val(val_vm_cluster);
 			input_type.val(val_type);
+
+			input_os_platform.val(val_os_platform);
+			input_asset_id.val(val_asset_id);
+			input_asset_updated.val(val_asset_updated);
 
 		} else if(e['field'] === 'Delete'){
 			tokens.set('token_delete_key', e.data['row._key']);			
@@ -146,6 +161,10 @@ require([
 			tokens.set('token_update_vm_cluster', input_vm_cluster.val());
 			tokens.set('token_update_type', input_type.val());
 
+			tokens.set('token_update_os_platform', input_os_platform.val());
+			tokens.set('token_update_asset_id', input_asset_id.val());
+			tokens.set('token_update_asset_updated', input_asset_updated.val());
+
 			console.log('UPDATE>input_type=', input_type.val());
 
 		} else {
@@ -168,6 +187,11 @@ require([
 			tokens.set('token_create_contact', input_contact.val());
 			tokens.set('token_create_vm_cluster', input_vm_cluster.val());
 			tokens.set('token_create_type', input_type.val());
+
+			tokens.set('token_create_os_platform', input_os_platform.val());
+			tokens.set('token_create_asset_id', input_asset_id.val());
+			tokens.set('token_create_asset_updated', input_asset_updated.val());
+
 
 			console.log('NEW>input_type=', input_type.val());
 		}

@@ -21,11 +21,14 @@
         | eval sys_contact="$token_create_contact$"
         | eval sys_vm_cluster="$token_create_vm_cluster$"
         | eval sys_type="$token_create_type$"
+        | eval sys_os_platform="$token_create_os_platform$"
+        | eval sys_asset_id="$token_create_asset_id$"
+        | eval sys_asset_updated="$token_create_asset_updated$"
         | eval sys_created_date=now()
         | eval sys_updated_date=now()
         | eval sys_created_user="$env:user$"
         | eval sys_updated_user="$env:user$"]
-      | table sys_application_id, sys_host_name, sys_fqdn, sys_description, sys_role, sys_environment, sys_network_zone, sys_ad_domain, sys_ipv4, sys_ipv6, sys_os, sys_status, sys_contact, sys_vm_cluster, sys_type, sys_created_date, sys_updated_date, sys_created_user, sys_updated_user
+      | table sys_application_id, sys_host_name, sys_fqdn, sys_description, sys_role, sys_environment, sys_network_zone, sys_ad_domain, sys_ipv4, sys_ipv6, sys_os, sys_status, sys_contact, sys_vm_cluster, sys_type, sys_os_platform, sys_asset_id, sys_asset_updated, sys_created_date, sys_updated_date, sys_created_user, sys_updated_user
       | outputlookup kvs_scmdb_system
     </query>  
   </search>
@@ -51,6 +54,9 @@
       | eval sys_contact="$token_update_contact$"
       | eval sys_vm_cluster="$token_update_vm_cluster$"
       | eval sys_type="$token_update_type$"
+      | eval sys_os_platform="$token_update_os_platform$"
+      | eval sys_asset_id="$token_update_asset_id$"
+      | eval sys_asset_updated="$token_update_asset_updated$"
       | eval sys_updated_date=now()
       | eval sys_updated_user="$env:user$"
       | outputlookup kvs_scmdb_system append=t
@@ -242,6 +248,12 @@
               <input style="width: 55%" type="text" name="name_sys_ipv6"/>
             </div>
 
+            <!-- Entry for OS Platform (Windows, Linux, ... -->
+            <div>
+          	  <label for="label_os_platform">OS Platform:</label>
+              <input style="width: 95%" type="text" name="name_sys_os_platform"/>
+            </div>
+
             <div>
           	  <label for="label_os">OS:</label>
               <input style="width: 95%" type="text" name="name_sys_os"/>
@@ -277,6 +289,16 @@
             <div>
           	  <label for="label_vm_cluster">VM Cluster:</label>
               <input style="width: 95%" type="text" name="name_sys_vm_cluster"/>
+            </div>
+
+            <div>
+          	  <label for="label_asset_id">Asset ID:</label>
+              <input style="width: 95%" type="text" name="name_sys_asset_id"/>
+            </div>
+
+            <div>
+          	  <label for="label_asset_updated">Asset Updated:</label>
+              <input style="width: 95%" type="text" name="name_sys_asset_updated"/>
             </div>
 
             <!--
