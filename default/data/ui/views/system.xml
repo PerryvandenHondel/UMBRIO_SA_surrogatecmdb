@@ -106,7 +106,7 @@
 
     <!-- In the search SPL add prefix with "* and suffix with *"; so search value will be "*text to search*" -->
     <input type="text" token="token_search_description" searchWhenChanged="true">
-      <label>Search description:</label>
+      <label>Description:</label>
       <default>*</default>
       <initialValue>*</initialValue>
        <prefix>*</prefix>
@@ -115,7 +115,7 @@
 
     <!-- In the search SPL add prefix with "* and suffix with *"; so search value will be "*text to search*" -->
     <input type="text" token="token_search_role" searchWhenChanged="true">
-      <label>Search role:</label>
+      <label>Role:</label>
       <default>*</default>
       <initialValue>*</initialValue>
        <prefix>*</prefix>
@@ -229,7 +229,7 @@
           	  <label for="label_ad_domain">AD Domain:</label>
               <input style="width: 95%" type="text" name="name_sys_ad_domain"/>
             </div>
-          </div>
+          </div> <!-- closing tag for <div class="column_left"> -->
           <div class="column_right">
 
             <div>
@@ -288,7 +288,7 @@
             <div>
               <p style="text-align:right">
               <button class="button button4" id="id_button_submit">Submit</button>
-              </p> <!-- Alignment of the button to the right of the column -->
+              </p> <!-- Closing tag for <div class="column_right"> -->
             </div>
           </div>
         </form>
