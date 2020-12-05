@@ -5,7 +5,9 @@
       <title>Overview Applications</title>
       <table>
         <search>
-          <query>| inputlookup kvs_scmdb_application</query>
+          <query>| inputlookup kvs_scmdb_application
+          | fields app_application_id, app_name, app_description
+          | sort app_name</query>
           <earliest>-24h@h</earliest>
           <latest>now</latest>
           <sampleRatio>1</sampleRatio>
@@ -14,7 +16,7 @@
         <option name="dataOverlayMode">none</option>
         <option name="drilldown">cell</option>
         <option name="percentagesRow">false</option>
-        <option name="rowNumbers">false</option>
+        <option name="rowNumbers">true</option>
         <option name="totalsRow">false</option>
         <option name="wrap">false</option>
         <drilldown>
