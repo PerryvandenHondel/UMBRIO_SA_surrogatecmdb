@@ -11,6 +11,7 @@
           <sampleRatio>1</sampleRatio>
         </search>
         <option name="drilldown">none</option>
+        <option name="rangeColors">["0x53a051","0x0877a6","0xf8be34","0xf1813f","0xdc4e41"]</option>
       </single>
     </panel>
     <panel>
@@ -42,7 +43,7 @@
         <option name="colorBy">value</option>
         <option name="colorMode">none</option>
         <option name="drilldown">none</option>
-        <option name="height">400</option>
+        <option name="height">178</option>
         <option name="numberPrecision">0</option>
         <option name="rangeColors">["0x53a051","0x0877a6","0xf8be34","0xf1813f","0xdc4e41"]</option>
         <option name="rangeValues">[0,30,70,100]</option>
@@ -58,6 +59,31 @@
         <option name="useColors">0</option>
         <option name="useThousandSeparators">1</option>
       </single>
+    </panel>
+  </row>
+  <row>
+    <panel>
+      <title>Lastest 10 updated systems</title>
+      <table>
+        <search>
+          <query>| inputlookup kvs_scmdb_system 
+| fields sys_host_name, sys_updated_date, sys_updated_user
+| eval c_updated=strftime(sys_updated_date,"%Y-%m-%d %H:%M:%S") 
+| fields c_updated,sys_host_name, sys_updated_user
+| head 10
+| sort - c_updated</query>
+          <earliest>-24h@h</earliest>
+          <latest>now</latest>
+          <sampleRatio>1</sampleRatio>
+        </search>
+        <option name="count">20</option>
+        <option name="dataOverlayMode">none</option>
+        <option name="drilldown">none</option>
+        <option name="percentagesRow">false</option>
+        <option name="rowNumbers">false</option>
+        <option name="totalsRow">false</option>
+        <option name="wrap">true</option>
+      </table>
     </panel>
   </row>
 </dashboard>
