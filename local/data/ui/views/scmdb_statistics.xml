@@ -2,6 +2,30 @@
   <label>SCMDB Statistics</label>
   <row>
     <panel>
+      <title>Number of Applications</title>
+      <single>
+        <search>
+          <query>| inputlookup kvs_scmdb_application| stats count</query>
+          <earliest>-24h@h</earliest>
+          <latest>now</latest>
+          <sampleRatio>1</sampleRatio>
+        </search>
+        <option name="drilldown">none</option>
+      </single>
+    </panel>
+    <panel>
+      <title>Number of Systems</title>
+      <single>
+        <search>
+          <query>| inputlookup kvs_scmdb_system| stats count</query>
+          <earliest>-24h@h</earliest>
+          <latest>now</latest>
+          <sampleRatio>1</sampleRatio>
+        </search>
+        <option name="drilldown">none</option>
+      </single>
+    </panel>
+    <panel>
       <title>Mapped vs Unmapped systems to Application ID</title>
       <single>
         <search>
@@ -26,7 +50,7 @@
         <option name="showTrendIndicator">1</option>
         <option name="trellis.enabled">1</option>
         <option name="trellis.scales.shared">1</option>
-        <option name="trellis.size">small</option>
+        <option name="trellis.size">large</option>
         <option name="trendColorInterpretation">standard</option>
         <option name="trendDisplayMode">absolute</option>
         <option name="unit">%</option>
