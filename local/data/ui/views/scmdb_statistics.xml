@@ -2,29 +2,38 @@
   <label>SCMDB Statistics</label>
   <row>
     <panel>
-      <title>Systems mapped vs unmapped to an Application ID</title>
-      <chart>
+      <title>Mapped vs Unmapped systems to Application ID</title>
+      <single>
         <search>
-          <query>
-            | inputlookup kvs_scmdb_system 
+          <query>| inputlookup kvs_scmdb_system 
 | eventstats count as "total" 
 | eval mapped_application_id=if(sys_application_id=="","Unmapped","Mapped") 
 | eventstats count as "mapped_count" by mapped_application_id 
 | eval percent=(mapped_count/total)*100 
-| stats values(percent) by mapped_application_id
-          </query>
+| stats values(percent) by mapped_application_id</query>
           <earliest>-24h@h</earliest>
           <latest>now</latest>
           <sampleRatio>1</sampleRatio>
         </search>
-        <option name="charting.axisTitleX.visibility">visible</option>
-        <option name="charting.axisTitleY.visibility">visible</option>
-        <option name="charting.axisTitleY2.visibility">visible</option>
-        <option name="charting.chart">bar</option>
-        <option name="charting.chart.stackMode">stacked</option>
-        <option name="charting.drilldown">none</option>
-        <option name="charting.legend.placement">right</option>
-      </chart>
+        <option name="colorBy">value</option>
+        <option name="colorMode">none</option>
+        <option name="drilldown">none</option>
+        <option name="height">400</option>
+        <option name="numberPrecision">0</option>
+        <option name="rangeColors">["0x53a051","0x0877a6","0xf8be34","0xf1813f","0xdc4e41"]</option>
+        <option name="rangeValues">[0,30,70,100]</option>
+        <option name="showSparkline">1</option>
+        <option name="showTrendIndicator">1</option>
+        <option name="trellis.enabled">1</option>
+        <option name="trellis.scales.shared">1</option>
+        <option name="trellis.size">small</option>
+        <option name="trendColorInterpretation">standard</option>
+        <option name="trendDisplayMode">absolute</option>
+        <option name="unit">%</option>
+        <option name="unitPosition">after</option>
+        <option name="useColors">0</option>
+        <option name="useThousandSeparators">1</option>
+      </single>
     </panel>
   </row>
 </dashboard>
