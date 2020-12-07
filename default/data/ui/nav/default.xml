@@ -1,7 +1,9 @@
 <nav search_view="search">
   <view name="welcome" default='true'/>
-  <view name="application"/>
-  <view name="system"/>
+  <collection label="Edit Tables">
+    <view name="application"/>
+    <view name="system"/>
+  </collection>
   <view name="search"/>
   <view name="datasets"/>
   <view name="reports"/>
