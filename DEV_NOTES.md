@@ -122,3 +122,21 @@ BEFORE REMOVING depends from searches in system.xml
     </query>
   </search>
 
+
+Dropdown populate XML
+https://community.splunk.com/t5/Dashboards-Visualizations/How-can-I-set-a-dynamic-default-value-in-a-dropdown-Simple-XML/m-p/132034
+
+ <input type="dropdown" token="source" searchWhenChanged="true">
+     <label>Select a Sourcetype:</label>
+     <populatingSearch fieldForValue="sourcetype" fieldForLabel="sourcetype" earliest="-24h" latest="now">
+        <![CDATA[index=_internal | stats count by sourcetype]]>
+     </populatingSearch>
+     <selectFirstChoice>true</selectFirstChoice>
+  </input>
+
+  Create dropdowns for
+  * Environments
+  * OS
+  * Status
+  * Type
+
