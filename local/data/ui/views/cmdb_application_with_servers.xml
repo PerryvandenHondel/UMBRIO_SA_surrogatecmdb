@@ -1,11 +1,29 @@
-<dashboard>
+<form>
   <label>SCMDB Application with Servers</label>
+  <fieldset submitButton="true">
+    <input type="dropdown" token="token_select_app_application_id" searchWhenChanged="true">
+      <label>Application ID:</label>
+      <fieldForLabel>app_application_id</fieldForLabel>
+      <fieldForValue>app_application_id</fieldForValue>
+      <search>
+        <query>| inputlookup kvs_scmdb_application | dedup app_application_id | sort app_application_id | table app_application_id</query>
+        <earliest>-24h@h</earliest>
+        <latest>now</latest>
+      </search>
+      <choice value="*">All</choice>
+      <initialValue>*</initialValue>
+      <prefix/>
+      <suffix/>
+      <default>*</default>
+    </input>
+  </fieldset>
   <row>
     <panel>
       <title>Overview Applications</title>
       <table>
         <search>
           <query>| inputlookup kvs_scmdb_application
+          | search app_application_id="$token_select_app_application_id$"
           | fields app_application_id, app_name, app_description
           | sort app_name</query>
           <earliest>-24h@h</earliest>
@@ -16,6 +34,7 @@
         <option name="dataOverlayMode">none</option>
         <option name="drilldown">cell</option>
         <option name="percentagesRow">false</option>
+        <option name="refresh.display">progressbar</option>
         <option name="rowNumbers">true</option>
         <option name="totalsRow">false</option>
         <option name="wrap">false</option>
@@ -44,4 +63,4 @@
       </table>
     </panel>
   </row>
-</dashboard>
+</form>
