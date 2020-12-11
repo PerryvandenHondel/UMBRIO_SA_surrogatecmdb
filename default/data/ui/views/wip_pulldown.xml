@@ -1,0 +1,320 @@
+<dashboard script="system.js" stylesheet="style.css">
+ 
+  <label>System</label>
+  
+  <search id="token_search_create">
+    <query>
+      | inputlookup kvs_scmdb_system 
+      | append [ stats count
+        | eval sys_application_id="$token_create_application_id$" 
+        | eval sys_host_name="$token_create_host_name$" 
+        | eval sys_fqdn="$token_create_fqdn$" 
+        | eval sys_description="$token_create_description$"
+        | eval sys_role="$token_create_role$"
+        | eval sys_environment="$token_create_environment$"
+        | eval sys_network_zone="$token_create_network_zone$"
+        | eval sys_ad_domain="$token_create_ad_domain$"
+        | eval sys_ipv4="$token_create_ipv4$"
+        | eval sys_ipv6="$token_create_ipv6$"
+        | eval sys_os="$token_create_os$"
+        | eval sys_status="$token_create_status$"
+        | eval sys_contact="$token_create_contact$"
+        | eval sys_vm_cluster="$token_create_vm_cluster$"
+        | eval sys_type="$token_create_type$"
+        | eval sys_os_platform="$token_create_os_platform$"
+        | eval sys_asset_id="$token_create_asset_id$"
+        | eval sys_asset_updated="$token_create_asset_updated$"
+        | eval sys_created_date=now()
+        | eval sys_updated_date=now()
+        | eval sys_created_user="$env:user$"
+        | eval sys_updated_user="$env:user$"]
+      | table sys_application_id, sys_host_name, sys_fqdn, sys_description, sys_role, sys_environment, sys_network_zone, sys_ad_domain, sys_ipv4, sys_ipv6, sys_os, sys_status, sys_contact, sys_vm_cluster, sys_type, sys_os_platform, sys_asset_id, sys_asset_updated, sys_created_date, sys_updated_date, sys_created_user, sys_updated_user
+      | outputlookup kvs_scmdb_system
+    </query>  
+  </search>
+
+
+  <search id="token_search_update">
+    <query>
+      | inputlookup kvs_scmdb_system 
+      | eval key=_key 
+      | WHERE key="$token_update_key$" 
+      | eval sys_application_id="$token_update_application_id$"
+      | eval sys_host_name="$token_update_host_name$"
+      | eval sys_fqdn="$token_update_fqdn$" 
+      | eval sys_description="$token_update_description$"
+      | eval sys_role="$token_update_role$"
+      | eval sys_environment="$token_update_environment$"
+      | eval sys_network_zone="$token_update_network_zone$"
+      | eval sys_ad_domain="$token_update_ad_domain$"
+      | eval sys_ipv4="$token_update_ipv4$"
+      | eval sys_ipv6="$token_update_ipv6$"
+      | eval sys_os="$token_update_os$"
+      | eval sys_status="$token_update_status$"
+      | eval sys_contact="$token_update_contact$"
+      | eval sys_vm_cluster="$token_update_vm_cluster$"
+      | eval sys_type="$token_update_type$"
+      | eval sys_os_platform="$token_update_os_platform$"
+      | eval sys_asset_id="$token_update_asset_id$"
+      | eval sys_asset_updated="$token_update_asset_updated$"
+      | eval sys_updated_date=now()
+      | eval sys_updated_user="$env:user$"
+      | outputlookup kvs_scmdb_system append=t
+    </query>  
+  </search>
+  
+    
+  <search id="token_search_delete">
+    <query>
+      | inputlookup kvs_scmdb_system
+      | eval key=_key
+      | WHERE NOT key="$token_delete_key$"
+      | outputlookup kvs_scmdb_system
+    </query>
+  </search>
+
+
+  <!-- Top selector drop downs -->
+
+  <fieldset submitButton="false">
+
+    <input type="dropdown" token="token_select_sys_application_id" searchWhenChanged="true">
+      <label>Application ID:</label>
+      <fieldForLabel>sys_application_id</fieldForLabel>
+      <fieldForValue>sys_application_id</fieldForValue>
+      <search>
+        <query>| inputlookup kvs_scmdb_system | dedup sys_application_id | sort sys_application_id | table sys_application_id</query>
+        <earliest>-24h@h</earliest>
+        <latest>now</latest>
+      </search>
+      <choice value="*">All</choice>
+      <initialValue>*</initialValue>
+      <prefix></prefix>
+      <suffix></suffix>
+      <default>*</default>
+    </input>
+
+    <input type="dropdown" token="token_select_host_name" searchWhenChanged="true">
+      <label>Host Name:</label>
+      <fieldForLabel>sys_host_name</fieldForLabel>
+      <fieldForValue>sys_host_name</fieldForValue>
+      <search>
+        <query>| inputlookup kvs_scmdb_system | dedup sys_host_name | sort sys_host_name | table sys_host_name</query>
+        <earliest>-24h@h</earliest>
+        <latest>now</latest>
+      </search>
+      <choice value="*">All</choice>
+      <initialValue>*</initialValue>
+      <prefix></prefix>
+      <suffix></suffix>
+      <default>*</default>
+    </input>
+
+    <!-- In the search SPL add prefix with "* and suffix with *"; so search value will be "*text to search*" -->
+    <input type="text" token="token_search_description" searchWhenChanged="true">
+      <label>Description:</label>
+      <default>*</default>
+      <initialValue>*</initialValue>
+       <prefix>*</prefix>
+      <suffix>*</suffix>
+    </input>
+
+    <!-- In the search SPL add prefix with "* and suffix with *"; so search value will be "*text to search*" -->
+    <input type="text" token="token_search_role" searchWhenChanged="true">
+      <label>Role:</label>
+      <default>*</default>
+      <initialValue>*</initialValue>
+       <prefix>*</prefix>
+      <suffix>*</suffix>
+    </input>
+
+    <input type="dropdown" token="token_select_status" searchWhenChanged="true">
+      <label>Status:</label>
+      <fieldForLabel>sys_status</fieldForLabel>
+      <fieldForValue>sys_status</fieldForValue>
+      <search>
+        <query>| inputlookup kvs_scmdb_system | dedup sys_status | sort sys_status | table sys_status</query>
+        <earliest>-24h@h</earliest>
+        <latest>now</latest>
+      </search>
+      <choice value="*">All</choice>
+      <initialValue>*</initialValue>
+      <prefix></prefix>
+      <suffix></suffix>
+      <default>*</default>
+    </input>
+
+   </fieldset>
+
+    <row>
+    <!-- Right side of the dashboard where the list of all requirements is -->
+    <panel id="token_panel_collection">
+      <table id="token_table_collection">
+        <title>System List</title>
+        <search id="token_search_collection">
+          <!-- Use search in SPL to use phase=*, will not work with where clause --> 
+          <query>
+            | inputlookup kvs_scmdb_system
+            | search (sys_host_name="$token_select_host_name$" AND sys_application_id="$token_select_sys_application_id$" AND sys_description="$token_search_description$" AND sys_status="$token_select_status$")
+            | eval Update="Update" 
+            | eval Delete="Delete" 
+            | table Update, sys_application_id, sys_host_name, *, Delete
+            | sort sys_host_name
+          </query>
+          <earliest>0</earliest>
+          <latest></latest>
+        </search>
+        <option name="dataOverlayMode">none</option>
+        <option name="drilldown">cell</option>
+        <option name="percentagesRow">false</option>
+        <option name="rowNumbers">true</option>
+        <option name="wrap">false</option>
+        <option name="count">20</option>
+        <format type="color" field="Delete">
+          <colorPalette type="map">{"Delete":#b22222}</colorPalette>
+        </format>
+        <!--
+        <format type="color" field="Update">
+          <colorPalette type="map">{"Update":#228b22}</colorPalette>
+        </format>
+        -->
+      </table>
+    </panel>
+
+    <!-- Left side of the dashboard where the form is -->
+     <panel id="token_panel_form">
+      <html>
+        <form>
+          <div class="column_left">
+
+            <h1>System Details</h1>
+
+            <!-- Hidden input for KV Store key field -->
+            <input type="hidden" name="_key"/>
+
+            <div>
+          	  <label for="label_host_name">Host name:</label>
+              <input style="width: 35%" type="text" name="name_sys_host_name"/>
+            </div>
+
+            <div>
+          	  <label for="label_application_id">Application ID:</label>
+              <input style="width: 35%" type="text" name="name_sys_application_id"/>
+            </div>
+
+            <div>
+          	  <label for="label_fqdn">FQDN:</label>
+              <input style="width: 95%" type="text" name="name_sys_fqdn"/>
+            </div>
+
+            <div>
+          	  <label for="label_description">Description:</label>
+              <textarea rows="3" cols="95%" name="name_sys_description"/>
+            </div>
+
+            <div>
+          	  <label for="label_role">Role:</label>
+              <textarea rows="3" cols="95%" name="name_sys_role"/>
+            </div>
+
+            <label>Environment:</label>
+              <select name="name_sys_environment" style="width:35%">       
+              <option selected="selected" value="Development">Development</option>
+              <option value="Test">Test</option>
+              <option value="Acceptance">Acceptance</option>
+              <option value="Production">Production</option>
+              <option value="DMZ">DMZ</option>
+            </select>
+
+            <div>
+          	  <label for="label_network_zone">Network Zone:</label>
+              <input style="width: 95%" type="text" name="name_sys_network_zone"/>
+            </div>
+
+            <div>
+          	  <label for="label_ad_domain">AD Domain:</label>
+              <input style="width: 95%" type="text" name="name_sys_ad_domain"/>
+            </div>
+          </div> <!-- closing tag for <div class="column_left"> -->
+          <div class="column_right">
+
+            <div>
+          	  <label for="label_ipv4">IPv4 Address:</label>
+               <input style="width: 35%" type="text" name="name_sys_ipv4"/>
+            </div>
+
+            <div>
+          	  <label for="label_ipv6">IPv6 Address:</label>
+              <input style="width: 55%" type="text" name="name_sys_ipv6"/>
+            </div>
+
+            <!-- Entry for OS Platform (Windows, Linux, ... -->
+            <div>
+          	  <label for="label_os_platform">OS Platform:</label>
+              <input style="width: 95%" type="text" name="name_sys_os_platform"/>
+            </div>
+
+            <div>
+          	  <label for="label_os">OS:</label>
+              <input style="width: 95%" type="text" name="name_sys_os"/>
+            </div>
+
+            <label>Status:</label>
+            <select name="name_sys_status" style="width:35%">       
+              <option selected="selected" value="In use">In use</option>
+              <option value="Available">Available</option>
+              <option value="Phase out">Phase out</option>
+            </select>
+
+            
+            <label>Type:</label>
+            <select name="name_sys_type" style="width:35%">       
+              <option selected="selected" value="Server">Server</option>
+              <option value="Client">Client</option>
+            </select>
+            
+
+            <!--
+            <div>
+          	  <label for="label_type">Type:</label>
+              <input style="width: 35%" type="text" name="name_sys_type"/>
+            </div>
+            -->
+
+            <div>
+          	  <label for="label_contact">Contact:</label>
+              <input style="width: 95%" type="text" name="name_sys_contact"/>
+            </div>
+
+            <div>
+          	  <label for="label_vm_cluster">VM Cluster:</label>
+              <input style="width: 95%" type="text" name="name_sys_vm_cluster"/>
+            </div>
+
+            <div>
+          	  <label for="label_asset_id">Asset ID:</label>
+              <input style="width: 95%" type="text" name="name_sys_asset_id"/>
+            </div>
+
+            <div>
+          	  <label for="label_asset_updated">Asset Updated:</label>
+              <input style="width: 95%" type="text" name="name_sys_asset_updated"/>
+            </div>
+
+            <!--
+            <div>
+          	  <label for="label_dummy2">Dummy:</label>
+              <textarea rows="5" cols="95%" name = "name_sys_dummy"/>
+            </div>
+            -->
+            <div>
+              <p style="text-align:right">
+              <button class="button button4" id="id_button_submit">Submit</button>
+              </p> <!-- Closing tag for <div class="column_right"> -->
+            </div>
+          </div>
+        </form>
+      </html>
+    </panel>
+  </row>
+</dashboard>
