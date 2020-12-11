@@ -4,6 +4,10 @@
     <view name="application"/>
     <view name="system"/>
   </collection>
+  <collection label="WIP">
+    <view name="wip_pulldown"/>
+  </collection>
+  
   <view name="search"/>
   <view name="datasets"/>
   <view name="reports"/>
